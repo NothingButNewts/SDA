@@ -10,5 +10,11 @@ namespace SDA
 {
     class Player
     {
+        int health;
+        int dexterity;
+        int strength;
+        int defense;
+        int exp;
+        int expToLevel;
     }
 }

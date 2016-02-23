@@ -1,1 +1,2 @@
 2/22/16 9:48 PM: Start code and classes created
+2/23/16 2:03 AM: Added variables to Player and Enemy classes

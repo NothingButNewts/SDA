@@ -10,5 +10,7 @@ namespace SDA
 {
     class Enemy
     {
+        int health;
+        int defense;
     }
 }
