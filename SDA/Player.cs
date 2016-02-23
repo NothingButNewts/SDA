@@ -8,9 +8,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SDA
 {
-    class Enemy
+    class Player
     {
         int health;
+        int dexterity;
+        int strength;
         int defense;
+        int exp;
+        int expToLevel;
+        int level;
+        int vitality;
+        
     }
 }
