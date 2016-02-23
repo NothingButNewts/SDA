@@ -11,11 +11,19 @@ namespace SDA
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D tempGrid;
+        Texture2D player;
+        bool playerTurn;
+        Rectangle playerRect;
+        
+        
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            playerTurn = true;
+            playerRect = new Rectangle(250, 250, 50, 50);
         }
 
         /// <summary>
@@ -39,7 +47,8 @@ namespace SDA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            tempGrid = Content.Load<Texture2D>("grid");
+            player = Content.Load<Texture2D>("PlayerTexture");
             // TODO: use this.Content to load your game content here
         }
 
@@ -63,7 +72,12 @@ namespace SDA
                 Exit();
 
             // TODO: Add your update logic here
-
+            if (playerTurn == true)
+            {
+                
+            }
+            
+            
             base.Update(gameTime);
         }
 
@@ -76,7 +90,10 @@ namespace SDA
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(tempGrid, new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height), Color.White);
+            spriteBatch.Draw(player, playerRect, Color.White);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
