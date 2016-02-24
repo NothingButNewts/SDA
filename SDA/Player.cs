@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using Microsoft.Xna.Framework.Content;
 namespace SDA
 {
     class Player
@@ -18,12 +18,13 @@ namespace SDA
         int expToLevel;
         int level;
         int vitality;
-        
-        //Handling player texture in Game1.cs for now
-        //Texture2D texture;
+
+        Texture2D texture;
+
+        public Texture2D Texture { get { return texture; } }
         
 
-        public Player()
+        public Player(ContentManager content)
         {
             
             health = 100;
@@ -32,12 +33,27 @@ namespace SDA
             exp = 0;
             expToLevel = 100;
             level = 1;
+            content.RootDirectory = "Content";
+            texture = content.Load<Texture2D>("PlayerTexture");
            
         }
-
+        /// <summary>
+        /// Method to move the character, uses input to move character one tile
+        /// Up, left, right and down
+        /// </summary>
         public void Move()
         {
-
+            
+        }
+        /// <summary>
+        /// Called when the player's Exp is greater than or equal to expToLevel
+        /// Increments Level by 1, scales expToLevel up, and reduces exp by expToLevel to reset
+        /// </summary>
+        public void Level()
+        {
+            level++;
+            expToLevel = (int)(expToLevel * 1.5);
+            exp = exp - expToLevel;
         }
     }
 }

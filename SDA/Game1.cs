@@ -15,6 +15,12 @@ namespace SDA
         Texture2D player;
         bool playerTurn;
         Rectangle playerRect;
+        Player playerCharacter;
+        
+        
+        //Probably Temporary, just using for variables for the playerRect, bmight need tro change
+        int X;
+        int Y;
         
         
 
@@ -23,7 +29,10 @@ namespace SDA
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             playerTurn = true;
-            playerRect = new Rectangle(250, 250, 50, 50);
+            X = 400;
+            Y = 400;
+            playerRect = new Rectangle(X,Y, 50, 50);
+            
         }
 
         /// <summary>
@@ -35,7 +44,7 @@ namespace SDA
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
             base.Initialize();
         }
 
@@ -46,9 +55,10 @@ namespace SDA
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            playerCharacter = new Player(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             tempGrid = Content.Load<Texture2D>("grid");
-            player = Content.Load<Texture2D>("PlayerTexture");
+            player = playerCharacter.Texture;
             // TODO: use this.Content to load your game content here
         }
 
@@ -89,6 +99,7 @@ namespace SDA
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             spriteBatch.Draw(tempGrid, new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height), Color.White);
@@ -96,5 +107,8 @@ namespace SDA
             spriteBatch.End();
             base.Draw(gameTime);
         }
+            
+           
+        
     }
 }

@@ -8,9 +8,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SDA
 {
-    class Enemy
+    abstract class  Enemy
     {
         int health;
-        int defense;    
+        int defense;
+        int expValue;
+
+        abstract protected void Move();
+        abstract protected void Attack();
+
+
     }
 }
+
