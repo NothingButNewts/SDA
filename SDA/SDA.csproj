@@ -43,6 +43,8 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skeleton.cs" />
+    <Compile Include="Sprite.cs" />
     <Compile Include="TowerMap.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\EnemyTexture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\grid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

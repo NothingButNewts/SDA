@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SDA
 {
-    abstract class  Enemy
+    abstract class  Enemy : Sprite
     {
         int health;
         int defense;

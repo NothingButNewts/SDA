@@ -12,10 +12,12 @@ namespace SDA
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D tempGrid;
-        Texture2D player;
         bool playerTurn;
-        Rectangle playerRect;
         Player playerCharacter;
+        Skeleton testSkeleton;
+        
+        public bool PlayerTurn { get { return playerTurn; }
+            set { playerTurn = value;} }
         
         
         //Probably Temporary, just using for variables for the playerRect, bmight need tro change
@@ -29,9 +31,6 @@ namespace SDA
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             playerTurn = true;
-            X = 400;
-            Y = 400;
-            playerRect = new Rectangle(X,Y, 50, 50);
             
         }
 
@@ -44,7 +43,8 @@ namespace SDA
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
+            playerCharacter = new Player();
+            testSkeleton = new Skeleton();
             base.Initialize();
         }
 
@@ -55,10 +55,12 @@ namespace SDA
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            playerCharacter = new Player(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             tempGrid = Content.Load<Texture2D>("grid");
-            player = playerCharacter.Texture;
+            playerCharacter.LoadContent(this.Content, "PlayerTexture", new Vector2(10,10));
+            testSkeleton.LoadContent(this.Content, "EnemyTexture", new Vector2(210,150));
+
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -84,7 +86,14 @@ namespace SDA
             // TODO: Add your update logic here
             if (playerTurn == true)
             {
-                
+
+                playerCharacter.Move();
+                playerTurn = playerCharacter.playerTurn;
+            }
+            else if (playerTurn == false)
+            {
+                System.Threading.Thread.Sleep(20);
+                playerTurn = true;
             }
             
             
@@ -102,8 +111,10 @@ namespace SDA
             
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(tempGrid, new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height), Color.White);
-            spriteBatch.Draw(player, playerRect, Color.White);
+            spriteBatch.Draw(tempGrid, new Rectangle(0, 0, Window.ClientBounds.Width, 
+                Window.ClientBounds.Height), Color.White);
+            testSkeleton.Draw(spriteBatch);
+            playerCharacter.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

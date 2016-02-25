@@ -3,3 +3,5 @@
 2/23/16 3:30 PM: Reuploaded the files, hopefully it works correctly this time.
 2/23/16 4:23 PM: Added basic values to player variables, Loaded in a temporary grid to test movement, and loaded a temporary player texture
 2/24/16 3:28 AM: Loading texture for the player is now done in Player.cs, set up basic framework for Level() method in Player.cs
+2/24/16 11:21 PM: Player movement is in the game, also created a basic turn based system to test. Just threw a Sleep thread in to simulate an enemies turn to see if it works.
+Reorganized loading of textures with the introduction of a Sprite class, loaded in a test enemy texture.
