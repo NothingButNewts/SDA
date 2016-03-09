@@ -1,7 +1,17 @@
 2/22/16 9:48 PM: Start code and classes created
+
 2/23/16 2:03 AM: Added variables to Player and Enemy classes
+
 2/23/16 3:30 PM: Reuploaded the files, hopefully it works correctly this time.
+
 2/23/16 4:23 PM: Added basic values to player variables, Loaded in a temporary grid to test movement, and loaded a temporary player texture
+
 2/24/16 3:28 AM: Loading texture for the player is now done in Player.cs, set up basic framework for Level() method in Player.cs
+
 2/24/16 11:21 PM: Player movement is in the game, also created a basic turn based system to test. Just threw a Sleep thread in to simulate an enemies turn to see if it works.
 Reorganized loading of textures with the introduction of a Sprite class, loaded in a test enemy texture.
+
+3/8/16 8:19 PM: Loads one map into the game, and draws that map to the screen(currently only draws the walls and blank spaces).
+Player and the enemy texture were resized to fit with the size put for the map tiles sizes. Character correctly moves within
+the level area. Collision is not in the game yet, and there is no combat or enemy AI yet. A first playable is possible at this point, 
+with the rendering of the character/world and movement. Will continue to be improved for a better first playable however.

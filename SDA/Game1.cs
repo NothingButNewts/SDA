@@ -11,27 +11,25 @@ namespace SDA
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D tempGrid;
         bool playerTurn;
         Player playerCharacter;
-        Skeleton testSkeleton;
-        
+        Ghoul testSkeleton;
+        Map gameMap;
+
         public bool PlayerTurn { get { return playerTurn; }
             set { playerTurn = value;} }
-        
-        
-        //Probably Temporary, just using for variables for the playerRect, bmight need tro change
-        int X;
-        int Y;
-        
-        
+
+        enum GameState { StartMenu, LevelSelect, Game, GameOver}
+        GameState currentGameState;     
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             playerTurn = true;
-            
+            Window.IsBorderless = true;
+            graphics.PreferredBackBufferHeight = (64 * 7);
+            graphics.PreferredBackBufferWidth = (64 * 11);
         }
 
         /// <summary>
@@ -44,7 +42,9 @@ namespace SDA
         {
             // TODO: Add your initialization logic here
             playerCharacter = new Player();
-            testSkeleton = new Skeleton();
+            testSkeleton = new Ghoul();
+            gameMap = new Map(this.Content);
+            
             base.Initialize();
         }
 
@@ -56,11 +56,9 @@ namespace SDA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            tempGrid = Content.Load<Texture2D>("grid");
-            playerCharacter.LoadContent(this.Content, "PlayerTexture", new Vector2(10,10));
-            testSkeleton.LoadContent(this.Content, "EnemyTexture", new Vector2(210,150));
-
-            
+            playerCharacter.LoadContent(this.Content, "Character/Player", new Vector2(64,64));
+            testSkeleton.LoadContent(this.Content, "Character/Ghoul", new Vector2(512,256));
+            gameMap.LoadLevels();
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,17 +84,17 @@ namespace SDA
             // TODO: Add your update logic here
             if (playerTurn == true)
             {
-
                 playerCharacter.Move();
                 playerTurn = playerCharacter.playerTurn;
+
             }
             else if (playerTurn == false)
             {
                 System.Threading.Thread.Sleep(20);
                 playerTurn = true;
+
             }
-            
-            
+
             base.Update(gameTime);
         }
 
@@ -106,13 +104,12 @@ namespace SDA
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            
+
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(tempGrid, new Rectangle(0, 0, Window.ClientBounds.Width, 
-                Window.ClientBounds.Height), Color.White);
+            gameMap.Draw(spriteBatch);
             testSkeleton.Draw(spriteBatch);
             playerCharacter.Draw(spriteBatch);
             spriteBatch.End();

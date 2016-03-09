@@ -43,9 +43,9 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Skeleton.cs" />
+    <Compile Include="Ghoul.cs" />
     <Compile Include="Sprite.cs" />
-    <Compile Include="TowerMap.cs" />
+    <Compile Include="Map.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -58,19 +58,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\EnemyTexture.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\grid.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PlayerTexture.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Character\Blob.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Character\Ghoul.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\WorldObjects\Ladder.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Character\Player.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Character\Shade.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Character\Vamp.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\WorldObjects\Wall.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Maps\" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
   <Target Name="BeforeResolveReferences">

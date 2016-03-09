@@ -47,22 +47,22 @@ namespace SDA
 
             if (oldKBState.IsKeyUp(Keys.W) && currentKBState.IsKeyDown(Keys.W))
             {
-                position.Y -= 60;
+                size = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
                 playerTurn = false;
             }
             else if (oldKBState.IsKeyUp(Keys.A) && currentKBState.IsKeyDown(Keys.A))
             {
-                position.X -= 100;
+                size = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
                 playerTurn = false;
             }
             else if (oldKBState.IsKeyUp(Keys.D) && currentKBState.IsKeyDown(Keys.D))
             {
-                position.X += 100;
+                size = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
                 playerTurn = false;
             }
             else if (oldKBState.IsKeyUp(Keys.S) && currentKBState.IsKeyDown(Keys.S))
             {
-                position.Y += 60;
+                size = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
                 playerTurn = false;
             }
             oldKBState = currentKBState;

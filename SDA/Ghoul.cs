@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SDA
 {
-    class Skeleton : Enemy
+    class Ghoul : Enemy
     {
         protected override void Attack()
         {
