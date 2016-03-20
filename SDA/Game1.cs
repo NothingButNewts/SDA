@@ -13,7 +13,7 @@ namespace SDA
         SpriteBatch spriteBatch;
         bool playerTurn;
         Player playerCharacter;
-        Ghoul testSkeleton;
+        Ghoul testGhoul;
         Map gameMap;
 
         public bool PlayerTurn { get { return playerTurn; }
@@ -40,10 +40,11 @@ namespace SDA
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
             playerCharacter = new Player();
-            testSkeleton = new Ghoul();
+            testGhoul = new Ghoul();
             gameMap = new Map(this.Content);
+            currentGameState = GameState.StartMenu;
             
             base.Initialize();
         }
@@ -56,8 +57,10 @@ namespace SDA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //I call the player and Ghoul LoadContents that are within the Sprite class
             playerCharacter.LoadContent(this.Content, "Character/Player", new Vector2(64,64));
-            testSkeleton.LoadContent(this.Content, "Character/Ghoul", new Vector2(512,256));
+            testGhoul.LoadContent(this.Content, "Character/Ghoul", new Vector2(512,256));
             gameMap.LoadLevels();
             // TODO: use this.Content to load your game content here
         }
@@ -82,19 +85,32 @@ namespace SDA
                 Exit();
 
             // TODO: Add your update logic here
-            if (playerTurn == true)
+            if (currentGameState == GameState.StartMenu)
             {
-                playerCharacter.Move();
-                playerTurn = playerCharacter.playerTurn;
-
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    currentGameState = GameState.Game;
+                }
             }
-            else if (playerTurn == false)
+            if (currentGameState == GameState.Game)
             {
-                System.Threading.Thread.Sleep(20);
-                playerTurn = true;
+                if (playerTurn == true)
+                {
+                    //There is no collision detection implemented at the current moment. 
+                    playerCharacter.Move();
+                    playerTurn = playerCharacter.playerTurn;
 
+                }
+                else if (playerTurn == false)
+                {
+                    //There is no sort of AI enemy functionality implemented yet, so I am using a sleep to simulate the turn based functionality.
+                    //After the AI is implemented, I may still keep a sleep so that the player doesn't move followed by an immediate enemy movement
+
+                    System.Threading.Thread.Sleep(20);
+                    playerTurn = true;
+
+                }
             }
-
             base.Update(gameTime);
         }
 
@@ -109,9 +125,14 @@ namespace SDA
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            gameMap.Draw(spriteBatch);
-            testSkeleton.Draw(spriteBatch);
-            playerCharacter.Draw(spriteBatch);
+
+            if (currentGameState == GameState.Game)
+            {
+                gameMap.Draw(spriteBatch);
+                testGhoul.Draw(spriteBatch); //The enemy currently gets drawn and does literally nothing.
+                playerCharacter.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -10,6 +10,7 @@ namespace SDA
 {
     abstract class  Enemy : Sprite
     {
+        //Base class for all the enemies, builds off of Sprite and then 
         int health;
         int defense;
         int expValue;

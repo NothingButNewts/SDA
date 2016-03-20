@@ -1,4 +1,4 @@
-How to use the level editor:
+	How to use the level editor:
 
 1.Place the sprites in the grid however you want.
 -highlighting a sprite on the left or right side provides a description.
