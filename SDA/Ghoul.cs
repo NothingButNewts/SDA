@@ -13,7 +13,7 @@ namespace SDA
 
         public Ghoul()
         {
-
+            
         }
 
 

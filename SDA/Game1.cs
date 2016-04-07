@@ -97,7 +97,7 @@ namespace SDA
                 if (playerTurn == true)
                 {
                     //There is no collision detection implemented at the current moment. 
-                    playerCharacter.Move();
+                    playerCharacter.Move(gameMap.WallSpaces);
                     playerTurn = playerCharacter.playerTurn;
 
                 }
@@ -125,7 +125,7 @@ namespace SDA
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-
+            
             if (currentGameState == GameState.Game)
             {
                 gameMap.Draw(spriteBatch);

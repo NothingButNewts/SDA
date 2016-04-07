@@ -22,7 +22,7 @@ namespace SDA
         KeyboardState oldKBState; //Becomes equal to the previous currentKBState
         KeyboardState currentKBState; //Checks the current keyboard state
         public bool playerTurn; //Bool to determine if it is the player's turn or not, changes on enemy turns and player turns
-        
+        bool canMove;
 
         public Player()
         {
@@ -34,6 +34,7 @@ namespace SDA
             expToLevel = 100;
             level = 1;
             playerTurn = true;
+            canMove = true;
                 
         }
         /// <summary>
@@ -41,33 +42,52 @@ namespace SDA
         /// Checks if the key was pressed during the currentKBState vs. the oldKBState
         /// Up, left, right and down
         /// </summary>
-        public void Move()
+        public void Move(List<Rectangle> walls)
         {
+            Rectangle tempSize= size;
             //No collision detection is implemented currently, so the player is completely able to clip through walls and go off the screen.
             KeyboardState currentKBState = Keyboard.GetState();
-
+            
             if (oldKBState.IsKeyUp(Keys.W) && currentKBState.IsKeyDown(Keys.W))
             {
-                size = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
+                tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
                 playerTurn = false;
             }
             else if (oldKBState.IsKeyUp(Keys.A) && currentKBState.IsKeyDown(Keys.A))
             {
-                size = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
+                tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
                 playerTurn = false;
             }
             else if (oldKBState.IsKeyUp(Keys.D) && currentKBState.IsKeyDown(Keys.D))
             {
-                size = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
                 playerTurn = false;
             }
             else if (oldKBState.IsKeyUp(Keys.S) && currentKBState.IsKeyDown(Keys.S))
             {
-                size = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
+                tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
                 playerTurn = false;
             }
             oldKBState = currentKBState;
-            
+            foreach (Rectangle item in walls)
+            {
+                if (canMove == true)
+                {
+                    if (item.Intersects(tempSize))
+                    {
+                        canMove = false;
+
+                    }
+                }
+            }
+            if (canMove == true)
+            {
+                size = tempSize;
+            }
+            else
+            {
+                canMove = true;
+            }
         }
         /// <summary>
         /// Called when the player's Exp is greater than or equal to expToLevel
