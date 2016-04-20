@@ -28,7 +28,7 @@ namespace SDA
 
         public List<Rectangle> ObjectSpaces { get { return objectSpaces; } }
         /// <summary>
-        /// Constructor for Map class, accepts the ContentManager from Game1, so that the class is able to draw the wallsx
+        /// Constructor for Map class, accepts the ContentManager from Game1, so that the class is able to draw the walls
         /// </summary>
         /// <param name="content"></param>
         public Map(ContentManager content)
