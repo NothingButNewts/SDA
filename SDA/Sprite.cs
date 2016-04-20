@@ -16,7 +16,7 @@ namespace SDA
         public string textureAsset;
 
         /// <summary>
-        /// Loads whatever assetname was put as a paramater and assigns it's startPosition(subject to change)
+        /// Loads whatever assetname was put as a paramater and assigns it's startPosition(subject to change)   
         /// </summary>
         /// <param name="content"></param>
         /// <param name="asset"></param>

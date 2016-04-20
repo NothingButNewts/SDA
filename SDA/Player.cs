@@ -23,9 +23,13 @@ namespace SDA
         KeyboardState currentKBState; //Checks the current keyboard state
         public bool playerTurn; //Bool to determine if it is the player's turn or not, changes on enemy turns and player turns
         bool canMove;
+        DirectionFacing currentDirection;
+        enum DirectionFacing { Up, Down, Left, Right };
 
+        public KeyboardState OldKBState { get { return oldKBState; } }
         public Player()
         {
+            currentDirection = DirectionFacing.Up;
             dexterity = 1;
             strength = 1;
             exp = 0;
@@ -52,21 +56,25 @@ namespace SDA
             {
                 tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
                 playerTurn = false;
+                currentDirection = DirectionFacing.Up;
             }
             else if (oldKBState.IsKeyUp(Keys.A) && currentKBState.IsKeyDown(Keys.A))
             {
                 tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
                 playerTurn = false;
+                currentDirection = DirectionFacing.Left;
             }
             else if (oldKBState.IsKeyUp(Keys.D) && currentKBState.IsKeyDown(Keys.D))
             {
                 tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
                 playerTurn = false;
+                currentDirection = DirectionFacing.Right;
             }
             else if (oldKBState.IsKeyUp(Keys.S) && currentKBState.IsKeyDown(Keys.S))
             {
                 tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
                 playerTurn = false;
+                currentDirection = DirectionFacing.Down;
             }
             oldKBState = currentKBState;
             foreach (Rectangle item in walls)
@@ -100,8 +108,22 @@ namespace SDA
             exp = exp - expToLevel;
         }
 
-        public int Attack()
+        public int Attack(List<Enemy> enemies)
         {
+            switch (currentDirection)
+            {
+                case DirectionFacing.Up:
+                   
+                    break;
+                case DirectionFacing.Left:
+                    break;
+                case DirectionFacing.Right:
+                    break;
+                case DirectionFacing.Down:
+                    break;
+                default:
+                    break;
+            }
             return damage;
         }
     }

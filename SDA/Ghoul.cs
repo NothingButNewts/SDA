@@ -27,5 +27,13 @@ namespace SDA
         {
             
         }
+        protected override void Spawn()
+        {
+
+        }
+        protected override void DetectPlayer()
+        {
+           
+        }
     }
 }

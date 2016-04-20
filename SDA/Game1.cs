@@ -9,18 +9,20 @@ namespace SDA
     /// </summary>
     public class Game1 : Game
     {
+        enum GameState { StartMenu, Instruction, LevelSelect, Game, GameOver } 
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         bool playerTurn;
         Player playerCharacter;
         Ghoul testGhoul;
         Map gameMap;
+        GameState currentGameState;
+        
 
         public bool PlayerTurn { get { return playerTurn; }
             set { playerTurn = value;} }
-
-        enum GameState { StartMenu, LevelSelect, Game, GameOver}
-        GameState currentGameState;     
+     
 
         public Game1()
         {
@@ -45,7 +47,7 @@ namespace SDA
             testGhoul = new Ghoul();
             gameMap = new Map(this.Content);
             currentGameState = GameState.StartMenu;
-            
+
             base.Initialize();
         }
 
@@ -60,7 +62,6 @@ namespace SDA
 
             //I call the player and Ghoul LoadContents that are within the Sprite class
             playerCharacter.LoadContent(this.Content, "Character/Player", new Vector2(64,64));
-            testGhoul.LoadContent(this.Content, "Character/Ghoul", new Vector2(512,256));
             gameMap.LoadLevels();
             // TODO: use this.Content to load your game content here
         }
@@ -81,23 +82,24 @@ namespace SDA
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) 
                 Exit();
 
             // TODO: Add your update logic here
             if (currentGameState == GameState.StartMenu)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    currentGameState = GameState.Game;
-                }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        currentGameState = GameState.Game;
+                    gameMap.LoadFloor();
+                    }
             }
-            if (currentGameState == GameState.Game)
+            else if (currentGameState == GameState.Game)
             {
                 if (playerTurn == true)
                 {
                     //There is no collision detection implemented at the current moment. 
-                    playerCharacter.Move(gameMap.WallSpaces);
+                    playerCharacter.Move(gameMap.ObjectSpaces);
                     playerTurn = playerCharacter.playerTurn;
 
                 }
@@ -111,6 +113,19 @@ namespace SDA
 
                 }
             }
+            else if (currentGameState == GameState.GameOver)
+            {
+
+            }
+            else if (currentGameState == GameState.Instruction)
+            {
+
+            }
+            else if (currentGameState == GameState.LevelSelect)
+            {
+                
+            }
+
             base.Update(gameTime);
         }
 
@@ -129,7 +144,6 @@ namespace SDA
             if (currentGameState == GameState.Game)
             {
                 gameMap.Draw(spriteBatch);
-                testGhoul.Draw(spriteBatch); //The enemy currently gets drawn and does literally nothing.
                 playerCharacter.Draw(spriteBatch);
             }
 

@@ -21,9 +21,12 @@ namespace SDA
         List<byte> byteMap;
         Texture2D wall;
         FileInfo[] files;
-        List<Rectangle> wallSpaces;
+        List<Rectangle> objectSpaces;
+        List<Enemy> enemies;
+        Random roomSelect;
+        private int[][] floorMap;
 
-        public List<Rectangle> WallSpaces { get { return wallSpaces; } }
+        public List<Rectangle> ObjectSpaces { get { return objectSpaces; } }
         /// <summary>
         /// Constructor for Map class, accepts the ContentManager from Game1, so that the class is able to draw the wallsx
         /// </summary>
@@ -39,7 +42,10 @@ namespace SDA
             roomNumber = 0;
             wall = content.Load<Texture2D>("WorldObjects/Wall");
             files = dirInfo.GetFiles();
-            wallSpaces = new List<Rectangle>();
+            objectSpaces = new List<Rectangle>();
+            enemies = new List<Enemy>();
+            roomSelect = new Random();
+            floorMap = new int[9][];
         }
 
         /// <summary>
@@ -65,7 +71,18 @@ namespace SDA
                 }
                 }
         }
- 
+
+        /// <summary>
+        /// Loads 9 rooms into the floormap array, from the full possibility of levelMaps.
+        /// </summary>
+        public void LoadFloor()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                floorMap[i] = levelMap[roomSelect.Next(0, levelMap.Count)];        
+            }
+        }
+
         /// <summary>
         /// Draws the map to the screen, uses the levelMap list and the spriteBatch object from Game1
         /// </summary>
@@ -79,49 +96,45 @@ namespace SDA
                                                       //any other room at the current moment since I do not have any sort of 
                                                       //implementation for transitioning between rooms.
             {
-
+                
                 if (tile == 1) //1 is a wall
                 {
-                    wallSpaces.Add(new Rectangle(column*64, row*64,tileWidth,tileHeight));
+                   objectSpaces.Add(new Rectangle(column * 64, row * 64, tileWidth, tileHeight));
 
-                    //I'll most likely end up reworking how I handle loading of maps so that I save the rectangles
-                    //that are used in the spriteBatch.Draw so that I can use it later for collision detection to check if
-                    //a players move would put the model into the wall or inside an enemy, and then refuse that movement.
 
-                    spriteBatch.Draw(wall, wallSpaces[i], Color.White);
+                    spriteBatch.Draw(wall, objectSpaces[i], Color.White);
                     //Map is 77 tiles, so after it draws row 1 column 0 through 10, it automatically moves on to row 2 column 0
-                    if (column == 10)
-                    {
-                        column = 0;
-                        row++;
-                        i++;
-                    }
-                    else
-                    {
-                        i++;
-                        column++;
-                    }
+                    i++;
                 }
-
-                else if (tile == 2) //2 is an empty space
+                else if (tile == 4)
+                {
+                  //  i++;
+                }
+                else if (tile == 5)
+                {
+                    //i++;
+                }
+                else if (tile == 6)
                 {
                     
-                    if (column == 10)
-                    {
-                        column = 0;
-                        row++;
-                    }
-                    else
-                    {
-                        column++;
-                    }
+                    //i++;
+                }
+                else if (tile == 7)
+                {
+                    //i++;
+                }
+
+                if (column == 10)
+                {
+                    column = 0;
+                    row++;
                 }
                 else
                 {
-
-                } 
+                    column++;
+                }
             }
-        }      
 
+        }
     }
 }
