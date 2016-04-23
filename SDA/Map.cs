@@ -25,8 +25,11 @@ namespace SDA
         List<Enemy> enemies;
         Random roomSelect;
         private int[][] floorMap;
+        List<Sprite> sprites;
 
         public List<Rectangle> ObjectSpaces { get { return objectSpaces; } }
+        public List<Enemy> Enemies { get { return enemies; } }
+        public List<Sprite> Sprites { get { return sprites; } }
         /// <summary>
         /// Constructor for Map class, accepts the ContentManager from Game1, so that the class is able to draw the walls
         /// </summary>
@@ -44,6 +47,7 @@ namespace SDA
             files = dirInfo.GetFiles();
             objectSpaces = new List<Rectangle>();
             enemies = new List<Enemy>();
+            sprites = new List<Sprite>();
             roomSelect = new Random();
             floorMap = new int[9][];
         }
@@ -82,6 +86,35 @@ namespace SDA
                 floorMap[i] = levelMap[roomSelect.Next(0, levelMap.Count)];        
             }
         }
+        public void LoadRoom(ContentManager content)
+        {
+            int row = 0;
+            int column = 0;
+            int i = 0;
+            foreach (int tile in levelMap[roomNumber])
+            {
+                if (tile == 6)
+                {
+                    enemies.Add(new Ghoul(new Vector2(tileHeight * column, tileWidth * row),"Character/Ghoul"));
+                   
+                    sprites.Add(enemies[i]);
+                    i++;
+                }
+                if (column == 10)
+                {
+                    column = 0;
+                    row++;
+                }
+                else
+                {
+                    column++;
+                }
+            }
+            foreach(Enemy enemy in enemies)
+            {
+                enemy.LoadContent(content);
+            }
+        }
 
         /// <summary>
         /// Draws the map to the screen, uses the levelMap list and the spriteBatch object from Game1
@@ -89,6 +122,7 @@ namespace SDA
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            objectSpaces.Clear();
             int row = 0;
             int column = 0;
             int i = 0;
@@ -108,7 +142,9 @@ namespace SDA
                 }
                 else if (tile == 4)
                 {
-                  //  i++;
+                  //  enemies.Add(new Ghoul(new Vector2(64 * column, 64 * row),"Character/Ghoul"));
+                    //objectSpaces.Add(new Rectangle(column * 64, row * 64, tileWidth, tileHeight));
+                    //i++;
                 }
                 else if (tile == 5)
                 {

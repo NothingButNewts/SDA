@@ -14,11 +14,13 @@ namespace SDA
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         bool playerTurn;
-        Player playerCharacter;
-        Ghoul testGhoul;
+        Player playerCharacter;  
         Map gameMap;
         GameState currentGameState;
-        
+        Ghoul test;
+
+        //Temporary bool to test the enemy spawning, should change when map transitioning is in
+        bool mapLoaded;
 
         public bool PlayerTurn { get { return playerTurn; }
             set { playerTurn = value;} }
@@ -32,6 +34,7 @@ namespace SDA
             Window.IsBorderless = true;
             graphics.PreferredBackBufferHeight = (64 * 7);
             graphics.PreferredBackBufferWidth = (64 * 11);
+            mapLoaded = false;
         }
 
         /// <summary>
@@ -43,11 +46,10 @@ namespace SDA
         protected override void Initialize()
         {
 
-            playerCharacter = new Player();
-            testGhoul = new Ghoul();
+            playerCharacter = new Player(new Vector2(64, 64), "Character/Player");
             gameMap = new Map(this.Content);
             currentGameState = GameState.StartMenu;
-
+           // test = new Ghoul(new Vector2(128, 128), "Character/Ghoul");
             base.Initialize();
         }
 
@@ -61,7 +63,8 @@ namespace SDA
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //I call the player and Ghoul LoadContents that are within the Sprite class
-            playerCharacter.LoadContent(this.Content, "Character/Player", new Vector2(64,64));
+            playerCharacter.LoadContent(this.Content);
+        //    test.LoadContent(this.Content);
             gameMap.LoadLevels();
             // TODO: use this.Content to load your game content here
         }
@@ -91,14 +94,19 @@ namespace SDA
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                     {
                         currentGameState = GameState.Game;
-                    gameMap.LoadFloor();
+                        gameMap.LoadFloor();
                     }
             }
             else if (currentGameState == GameState.Game)
             {
+                if (mapLoaded == false)
+                {
+                    gameMap.LoadRoom(this.Content);
+                    mapLoaded = true;
+                }
                 if (playerTurn == true)
                 {
-                    //There is no collision detection implemented at the current moment. 
+                     
                     playerCharacter.Move(gameMap.ObjectSpaces);
                     playerTurn = playerCharacter.playerTurn;
 
@@ -107,8 +115,11 @@ namespace SDA
                 {
                     //There is no sort of AI enemy functionality implemented yet, so I am using a sleep to simulate the turn based functionality.
                     //After the AI is implemented, I may still keep a sleep so that the player doesn't move followed by an immediate enemy movement
-
-                    System.Threading.Thread.Sleep(20);
+                    //       test.Move(gameMap.ObjectSpaces);
+                    foreach (Enemy enemy in gameMap.Enemies)
+                    {
+                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites);
+                    }
                     playerTurn = true;
 
                 }
@@ -145,6 +156,10 @@ namespace SDA
             {
                 gameMap.Draw(spriteBatch);
                 playerCharacter.Draw(spriteBatch);
+                foreach (Enemy enemy in gameMap.Enemies)
+                {
+                    enemy.Draw(spriteBatch);
+                }
             }
 
             spriteBatch.End();

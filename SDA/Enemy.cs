@@ -14,8 +14,12 @@ namespace SDA
         int health;
         int defense;
         int expValue;
+        public Enemy(Vector2 startPos, string asset):base(startPos, asset)
+        {
 
-        abstract protected void Move();
+        }
+
+        abstract public void Move(List<Rectangle> walls,List<Sprite> entities);
         abstract protected void Attack();
 
         protected virtual void Spawn()

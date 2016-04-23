@@ -14,6 +14,13 @@ namespace SDA
         protected Texture2D texture;
         public Rectangle size;
         public string textureAsset;
+        
+        public Sprite(Vector2 startPos, string asset)
+        {
+            position = startPos;
+            textureAsset = asset;
+
+        }
 
         /// <summary>
         /// Loads whatever assetname was put as a paramater and assigns it's startPosition(subject to change)   
@@ -21,13 +28,12 @@ namespace SDA
         /// <param name="content"></param>
         /// <param name="asset"></param>
         /// <param name="startPos"></param>
-        public void LoadContent(ContentManager content, string asset,Vector2 startPos)
+        public void LoadContent(ContentManager content)
         {
-            position = startPos;
-            texture = content.Load<Texture2D>(asset);
-            textureAsset = asset;
-            size = new Rectangle((int)startPos.X
-                ,(int)startPos.Y,64,64);
+            
+            texture = content.Load<Texture2D>(textureAsset);
+            size = new Rectangle((int)position.X
+                ,(int)position.Y,64,64);
         }
 
         /// <summary>

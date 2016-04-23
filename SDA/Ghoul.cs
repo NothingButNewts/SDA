@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace SDA
 {
@@ -10,10 +14,13 @@ namespace SDA
     /// </summary>
     class Ghoul : Enemy
     {
-
-        public Ghoul()
+        bool canMove;
+        Random move;
+        int moveDirection; // 0 moves up, 1 moves left, 2 moves down, 3 moves right
+        public Ghoul(Vector2 startPos, string asset):base(startPos, asset)
         {
-            
+            canMove = true;
+            move = new Random();
         }
 
 
@@ -23,9 +30,52 @@ namespace SDA
         }
 
 
-        protected override void Move()
+        public override void Move(List<Rectangle> walls,List<Sprite>entities)
         {
-            
+            Rectangle tempSize = size;
+            moveDirection = move.Next(0, 4);
+            switch (moveDirection)
+            {
+                case 0: tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
+                    break;
+                case 1: tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
+                    break;
+                case 2: tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
+                    break;
+                case 3: tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                    break;
+                default: break;
+            }
+            foreach (Rectangle item in walls)
+            {
+                if (canMove == true)
+                {
+                    if (item.Intersects(tempSize))
+                    {
+                        canMove = false;
+
+                    }
+                }
+            }
+            foreach(Sprite entity in entities)
+            {
+                if (canMove== true)
+                {
+                    if (entity.size.Intersects(tempSize))
+                    {
+                        canMove = false;
+                    }
+                }
+            }
+            if (canMove == true)
+            {
+                size = tempSize;
+            }
+            else
+            {
+                canMove = true;
+                Move(walls,entities);
+            }
         }
         protected override void Spawn()
         {

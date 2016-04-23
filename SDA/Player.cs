@@ -27,7 +27,7 @@ namespace SDA
         enum DirectionFacing { Up, Down, Left, Right };
 
         public KeyboardState OldKBState { get { return oldKBState; } }
-        public Player()
+        public Player(Vector2 startPos, string asset):base(startPos, asset)
         {
             currentDirection = DirectionFacing.Up;
             dexterity = 1;
@@ -48,6 +48,7 @@ namespace SDA
         /// </summary>
         public void Move(List<Rectangle> walls)
         {
+            playerTurn = true;
             Rectangle tempSize= size;
             //No collision detection is implemented currently, so the player is completely able to clip through walls and go off the screen.
             KeyboardState currentKBState = Keyboard.GetState();
