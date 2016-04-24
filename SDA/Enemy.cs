@@ -14,6 +14,7 @@ namespace SDA
         int health;
         int defense;
         int expValue;
+        Map map = new Map();
         public Enemy(Vector2 startPos, string asset):base(startPos, asset)
         {
 
@@ -29,7 +30,28 @@ namespace SDA
 
         abstract protected void DetectPlayer();
 
+        //deals with enemy collision with outer walls to make sure they can't leave the room
+        public bool CheckOuterWalls(int x, int y)
+        {
+            if (x < 64)
+            {
+                return false;
+            }
+            if (y < 64)
+            {
+                return false;
+            }
+            if (x > 704)
+            {
+                return false;
+            }
+            if (y > 448)
+            {
+                return false;
+            }
 
+            return true;
+        }
     }
 }
 
