@@ -21,14 +21,8 @@ namespace SDA
         }
 
         abstract public void Move(List<Rectangle> walls,List<Sprite> entities, int attempt,Player player);
-        abstract protected void Attack();
-
-        protected virtual void Spawn()
-        {
-            
-        }
-
-        abstract protected void DetectPlayer();
+        abstract public void Attack(Player player);
+        abstract public bool DetectPlayer(Player player);
 
         //deals with enemy collision with outer walls to make sure they can't leave the room
         public bool CheckOuterWalls(int x, int y)

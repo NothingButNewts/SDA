@@ -289,7 +289,14 @@ namespace SDA
                 {
                     foreach (Enemy enemy in gameMap.Enemies)
                     {
+                        if (enemy.DetectPlayer(playerCharacter))
+                        {
+
+                            enemy.Attack(playerCharacter);
+                        }
+                        else { 
                         enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0,playerCharacter);
+                        }
                     }
                     playerTurn = true;
 

@@ -9,9 +9,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SDA
 {
-    /// <summary>
-    /// Extrememly barebones. No AI implemented yet. 
-    /// </summary>
     class Ghoul : Enemy
     {
         bool canMove;
@@ -24,10 +21,20 @@ namespace SDA
         }
 
 
-        protected override void Attack()
+        public override void Attack(Player player)
         {
+            bool canAttack = DetectPlayer(player);
 
+            if(canAttack == true)
+            {
+                player.Health = player.Health - 10;
+            }
+            else if (canAttack == false)
+            {
+                return;
+            }
         }
+
 
 
         public override void Move(List<Rectangle> walls,List<Sprite>entities, int attempt,Player player)
@@ -92,9 +99,34 @@ namespace SDA
                 }
             }
         }
-        protected override void DetectPlayer()
+        public override bool DetectPlayer(Player player)
         {
-           
+        
+            Rectangle tempSize=size;
+            for (int i = 0; i < 4; i++)
+            {
+                switch (i)
+                {
+                    case 0: tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                        break;
+                    case 1:
+                        tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
+                        break;
+                    case 2:
+                        tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
+                        break;
+                    case 3:
+                        tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
+                        break;
+                    default: break;
+                }
+                if (tempSize.Intersects(player.size))
+                {
+                    return true;
+                }
+                
+            }
+            return false;
         }
     }
 }
