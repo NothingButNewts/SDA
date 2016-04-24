@@ -46,7 +46,7 @@ namespace SDA
         /// Checks if the key was pressed during the currentKBState vs. the oldKBState
         /// Up, left, right and down
         /// </summary>
-        public void Move(List<Rectangle> walls)
+        public void Move(List<Rectangle> walls,List<Enemy> enemies)
         {
             playerTurn = true;
             Rectangle tempSize= size;
@@ -87,6 +87,16 @@ namespace SDA
                         canMove = false;
 
                     }
+                }
+            }
+            foreach(Enemy enemy in enemies)
+            {
+                if (canMove == true)
+                {
+                    if (enemy.size.Intersects(size))
+                    {
+                        canMove = false;
+                    }                                                                                                                                                         
                 }
             }
             if (canMove == true)

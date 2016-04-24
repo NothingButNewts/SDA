@@ -19,7 +19,7 @@ namespace SDA
 
         }
 
-        abstract public void Move(List<Rectangle> walls,List<Sprite> entities, int attempt);
+        abstract public void Move(List<Rectangle> walls,List<Sprite> entities, int attempt,Player player);
         abstract protected void Attack();
 
         protected virtual void Spawn()

@@ -103,7 +103,7 @@ namespace SDA
                 if (playerTurn == true)
                 {
                      
-                    playerCharacter.Move(gameMap.ObjectSpaces);
+                    playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies);
                     playerTurn = playerCharacter.playerTurn;
 
                 }
@@ -114,7 +114,7 @@ namespace SDA
                     //       test.Move(gameMap.ObjectSpaces);
                     foreach (Enemy enemy in gameMap.Enemies)
                     {
-                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0);
+                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0,playerCharacter);
                     }
                     playerTurn = true;
 
