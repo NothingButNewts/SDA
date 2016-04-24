@@ -98,8 +98,8 @@ namespace SDA
         }
         public void LoadRoom(ContentManager content)
         {
-            int row = 0;
-            int column = 0;
+            int row = 1;
+            int column = 1;
             int i = 0;
             foreach (int tile in levelMap[roomNumber])
             {
@@ -110,9 +110,9 @@ namespace SDA
                     sprites.Add(enemies[i]);
                     i++;
                 }
-                if (column == 10)
+                if (column == 11)
                 {
-                    column = 0;
+                    column = 1;
                     row++;
                 }
                 else
