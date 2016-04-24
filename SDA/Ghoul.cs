@@ -30,7 +30,7 @@ namespace SDA
         }
 
 
-        public override void Move(List<Rectangle> walls,List<Sprite>entities)
+        public override void Move(List<Rectangle> walls,List<Sprite>entities, int attempt,Player player)
         {
             Rectangle tempSize = size;
             moveDirection = move.Next(0, 4);
@@ -67,19 +67,30 @@ namespace SDA
                     }
                 }
             }
+            if (player.size.Intersects(tempSize))
+            {
+                if (canMove == true)
+                {
+                    canMove = false;
+                }
+            }
             if (canMove == true)
             {
                 size = tempSize;
             }
             else
             {
-                canMove = true;
-                Move(walls,entities);
+                if (attempt >= 1)
+                {
+                    return;
+                }
+                else
+                {
+                    attempt++;
+                    canMove = true;
+                    Move(walls, entities, attempt,player);
+                }
             }
-        }
-        protected override void Spawn()
-        {
-
         }
         protected override void DetectPlayer()
         {

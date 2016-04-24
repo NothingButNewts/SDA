@@ -28,6 +28,7 @@ namespace SDA
         private int[][] floorMap;
         List<Sprite> sprites;
 
+
         public List<Rectangle> ObjectSpaces { get { return objectSpaces; } }
         public List<Enemy> Enemies { get { return enemies; } }
         public List<Sprite> Sprites { get { return sprites; } }

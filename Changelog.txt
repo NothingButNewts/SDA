@@ -16,4 +16,7 @@ Player and the enemy texture were resized to fit with the size put for the map t
 the level area. Collision is not in the game yet, and there is no combat or enemy AI yet. A first playable is possible at this point, 
 with the rendering of the character/world and movement. Will continue to be improved for a better first playable however.
 
-4/7/16 12:22 PM: Collision! We have a basic version of collision in the game, the player doesn't collide with the walls of the game world anymore.
+4/7/16 12:22 PM: Collision! We have a basic version of collision in the game, the player doesn't gon inside the walls of the game world anymore.
+
+4/24/16 1:31 PM: Enemy movement is now in the game for Ghouls, as well as spawning ghouls based on loaded map. Player collision '
+and enemy collision with one another is the next step.
