@@ -518,15 +518,37 @@ namespace LevelEditor
         {
             int i = 0;
             int lvlNum = 0;
+            int gap = 0;
+            string lvlNm = "";
 
             //this is used to create a new file every time the save function is used by making the file name one number higher than the last
             //ex: Level 0.dat, Level 1.dat, Level 2.dat, etc.
             string[] files = Directory.GetFiles(".");
             foreach (string file in files)
             {
-                if (file.Contains("Level ")) i++;
-                lvlNum = i;
+                lvlNm = "";
+                if (file.Contains("Level ")) //if the file is a saved level
+                {
+                    i++;
+                    
+                    for (int num = 8; num < file.Length - 4; num++) //gets the number of the level in the file name
+                    {
+                        lvlNm += file[num];
+                    }
+
+                    if (gap != int.Parse(lvlNm)) //checks to see if the number in the file name matches the number it should be (prevents skips in numbers which would cause the same file to
+                    {                            //keep getting overwriten over and over again
+                        lvlNum = gap;
+                        break;
+                    }
+                    else //if the file has the correct number, continue checking the other files and set levelnum equal to the next number in line
+                    {
+                        gap++;
+                        lvlNum = i;
+                    }
+                }
             }
+            
 
             try {
                 Stream lvl = File.OpenWrite("Level " + lvlNum + ".dat");
