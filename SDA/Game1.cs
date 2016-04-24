@@ -32,8 +32,8 @@ namespace SDA
             Content.RootDirectory = "Content";
             playerTurn = true;
             Window.IsBorderless = true;
-            graphics.PreferredBackBufferHeight = (64 * 7);
-            graphics.PreferredBackBufferWidth = (64 * 11);
+            graphics.PreferredBackBufferHeight = (64 * 9);
+            graphics.PreferredBackBufferWidth = (64 * 13);
             mapLoaded = false;
         }
 

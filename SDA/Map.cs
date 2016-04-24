@@ -12,6 +12,7 @@ namespace SDA
 {
     class Map
     {
+        bool[] doors = { false, false, true, true }; //array of booleans to show what doors are present in a given room. 0 is the left wall and it goes clockwise.
         int roomNumber;
         int tileWidth;
         int tileHeight;
@@ -30,6 +31,8 @@ namespace SDA
         public List<Rectangle> ObjectSpaces { get { return objectSpaces; } }
         public List<Enemy> Enemies { get { return enemies; } }
         public List<Sprite> Sprites { get { return sprites; } }
+        public bool[] Doors { get { return doors; } set { doors = value; } } //needed for the player class to know where doors are
+        public int RoomNumber { get { return roomNumber; } set { roomNumber = value; } } //needed so the player class can update the room once the player goes through a door
         /// <summary>
         /// Constructor for Map class, accepts the ContentManager from Game1, so that the class is able to draw the walls
         /// </summary>
@@ -52,6 +55,12 @@ namespace SDA
             floorMap = new int[9][];
         }
 
+        //default constructor used in player class to get access to door positions
+        public Map()
+        {
+
+        }
+        
         /// <summary>
         /// Checks each file in the "Maps" directory, if it includes the string "Level" within it, it loads the bytes into the 
         /// byteMap list, and then takes every 4th byte and puts that into the tileMap int array, and adds that into the levelMap list
@@ -122,6 +131,16 @@ namespace SDA
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            //drawing outer walls around the entire floor. Checks to see if doors are present, draws in gaps accordingly.
+            for(int j = 0; j < 13; j++)
+            {
+                for (int k = 0; k < 9; k++)
+                {
+                    if (j == 0 && (k != 4 || !doors[0]) || j == 12 && (k != 4 || !doors[2])) spriteBatch.Draw(wall, new Rectangle(j * 64, k * 64, tileWidth, tileHeight), Color.White);
+                    if (k == 0 && (j != 6 || !doors[1]) || k == 8 && (j != 6 || !doors[3])) spriteBatch.Draw(wall, new Rectangle(j * 64, k * 64, tileWidth, tileHeight), Color.White);
+                }
+            }
+
             objectSpaces.Clear();
             int row = 0;
             int column = 0;
@@ -133,7 +152,7 @@ namespace SDA
                 
                 if (tile == 1) //1 is a wall
                 {
-                   objectSpaces.Add(new Rectangle(column * 64, row * 64, tileWidth, tileHeight));
+                   objectSpaces.Add(new Rectangle(column * 64 + 64, row * 64 + 64, tileWidth, tileHeight));
 
 
                     spriteBatch.Draw(wall, objectSpaces[i], Color.White);

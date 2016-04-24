@@ -25,6 +25,7 @@ namespace SDA
         bool canMove;
         DirectionFacing currentDirection;
         enum DirectionFacing { Up, Down, Left, Right };
+        Map map = new Map();
 
         public KeyboardState OldKBState { get { return oldKBState; } }
         public Player(Vector2 startPos, string asset):base(startPos, asset)
@@ -89,7 +90,7 @@ namespace SDA
                     }
                 }
             }
-            if (canMove == true)
+            if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
             {
                 size = tempSize;
             }
@@ -126,6 +127,148 @@ namespace SDA
                     break;
             }
             return damage;
+        }
+
+        //handles player collision with outer walls that surround the map. Takes x and y coordinates as parameters. If the player is able to move, returns true.
+        public bool CheckOuterWalls(int x, int y)
+        {
+            if(x < 64)
+            {
+                if (map.Doors[0] && y == 256) return true;
+                return false;
+            }
+            if(y < 64)
+            {
+                if (map.Doors[1] && x == 384) return true;
+                return false;
+            }
+            if(x > 704)
+            {
+                if (map.Doors[2] && y == 256) return true;
+                return false;
+            }
+            if(y > 448)
+            {
+                if (map.Doors[3] && x == 384) return true;
+                return false;
+            }
+
+            return true;
+        }
+
+        public void ChangeRoom(string dir)
+        {
+           if(dir == "left")
+            {
+                if (map.RoomNumber == 1) map.RoomNumber = 0;
+                if (map.RoomNumber == 2) map.RoomNumber = 1;
+                if (map.RoomNumber == 4) map.RoomNumber = 3;
+                if (map.RoomNumber == 5) map.RoomNumber = 4;
+                if (map.RoomNumber == 7) map.RoomNumber = 6;
+                if (map.RoomNumber == 8) map.RoomNumber = 7;
+            }
+
+            if (dir == "right")
+            {
+                if (map.RoomNumber == 0) map.RoomNumber = 1;
+                if (map.RoomNumber == 1) map.RoomNumber = 2;
+                if (map.RoomNumber == 3) map.RoomNumber = 4;
+                if (map.RoomNumber == 4) map.RoomNumber = 5;
+                if (map.RoomNumber == 6) map.RoomNumber = 7;
+                if (map.RoomNumber == 7) map.RoomNumber = 8;
+            }
+
+            if (dir == "up")
+            {
+                if (map.RoomNumber == 3) map.RoomNumber = 0;
+                if (map.RoomNumber == 4) map.RoomNumber = 1;
+                if (map.RoomNumber == 5) map.RoomNumber = 2;
+                if (map.RoomNumber == 6) map.RoomNumber = 3;
+                if (map.RoomNumber == 7) map.RoomNumber = 4;
+                if (map.RoomNumber == 8) map.RoomNumber = 5;
+            }
+
+            if (dir == "down")
+            {
+                if (map.RoomNumber == 0) map.RoomNumber = 3;
+                if (map.RoomNumber == 1) map.RoomNumber = 4;
+                if (map.RoomNumber == 2) map.RoomNumber = 5;
+                if (map.RoomNumber == 3) map.RoomNumber = 6;
+                if (map.RoomNumber == 4) map.RoomNumber = 7;
+                if (map.RoomNumber == 5) map.RoomNumber = 8;
+            }
+
+            if (map.RoomNumber == 0)
+            {
+                map.Doors[0] = false;
+                map.Doors[1] = false;
+                map.Doors[2] = true;
+                map.Doors[3] = true;
+            }
+
+            else if (map.RoomNumber == 1)
+            {
+                map.Doors[0] = true;
+                map.Doors[1] = false;
+                map.Doors[2] = true;
+                map.Doors[3] = true;
+            }
+
+            else if (map.RoomNumber == 2)
+            {
+                map.Doors[0] = true;
+                map.Doors[1] = false;
+                map.Doors[2] = false;
+                map.Doors[3] = true;
+            }
+
+            else if (map.RoomNumber == 3)
+            {
+                map.Doors[0] = false;
+                map.Doors[1] = true;
+                map.Doors[2] = true;
+                map.Doors[3] = true;
+            }
+
+            else if (map.RoomNumber == 4)
+            {
+                map.Doors[0] = true;
+                map.Doors[1] = true;
+                map.Doors[2] = true;
+                map.Doors[3] = true;
+            }
+
+            else if (map.RoomNumber == 5)
+            {
+                map.Doors[0] = true;
+                map.Doors[1] = true;
+                map.Doors[2] = false;
+                map.Doors[3] = true;
+            }
+
+            else if (map.RoomNumber == 6)
+            {
+                map.Doors[0] = false;
+                map.Doors[1] = true;
+                map.Doors[2] = true;
+                map.Doors[3] = false;
+            }
+
+            else if (map.RoomNumber == 7)
+            {
+                map.Doors[0] = true;
+                map.Doors[1] = true;
+                map.Doors[2] = true;
+                map.Doors[3] = false;
+            }
+
+            else
+            {
+                map.Doors[0] = true;
+                map.Doors[1] = true;
+                map.Doors[2] = false;
+                map.Doors[3] = false;
+            }
         }
     }
 }
