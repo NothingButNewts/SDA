@@ -9,9 +9,13 @@ namespace SDA
     /// </summary>
     public class Game1 : Game
     {
+//<<<<<<< HEAD
         enum GameState { Menu, LevelSelect, Game, GameOver }
         enum MenuState { Menu1, Menu2, Instruct1, Instruct2, Controls1, Controls2, GameOver1, GameOver2 }
         MenuState menu;
+//=======
+        //enum GameState { StartMenu, Game, GameOver } 
+//>>>>>>> 98f12727bfb4ff5488ee06bc4836d9e63b47de84
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -58,9 +62,13 @@ namespace SDA
 
             playerCharacter = new Player(new Vector2(64, 64), "Character/Player");
             gameMap = new Map(this.Content);
+//<<<<<<< HEAD
             currentGameState = GameState.Menu;
             menu = MenuState.Menu1;
            // test = new Ghoul(new Vector2(128, 128), "Character/Ghoul");
+//=======
+            currentGameState = GameState.Menu;
+//>>>>>>> 98f12727bfb4ff5488ee06bc4836d9e63b47de84
             base.Initialize();
         }
 
@@ -72,11 +80,10 @@ namespace SDA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //I call the player and Ghoul LoadContents that are within the Sprite class
             playerCharacter.LoadContent(this.Content);
-        //    test.LoadContent(this.Content);
+      
             gameMap.LoadLevels();
+//<<<<<<< HEAD
             // TODO: use this.Content to load your game content here
             background1 = Content.Load<Texture2D>("Menu1");
             background2 = Content.Load<Texture2D>("Menu2");
@@ -86,6 +93,8 @@ namespace SDA
             background6 = Content.Load<Texture2D>("Controls2");
             background7 = Content.Load<Texture2D>("GameOver1");
             background8 = Content.Load<Texture2D>("GameOver2");
+//=======
+//>>>>>>> 98f12727bfb4ff5488ee06bc4836d9e63b47de84
         }
 
         /// <summary>
@@ -280,7 +289,7 @@ namespace SDA
                 if (playerTurn == true)
                 {
                      
-                    playerCharacter.Move(gameMap.ObjectSpaces);
+                    playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies);
                     playerTurn = playerCharacter.playerTurn;
 
                 }
@@ -291,7 +300,7 @@ namespace SDA
                     //       test.Move(gameMap.ObjectSpaces);
                     foreach (Enemy enemy in gameMap.Enemies)
                     {
-                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites);
+                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0,playerCharacter);
                     }
                     playerTurn = true;
 
@@ -301,6 +310,7 @@ namespace SDA
             {
 
             }
+<<<<<<< HEAD
             else if (currentGameState == GameState.Instruction)
             {
 
@@ -310,6 +320,8 @@ namespace SDA
                 
             }*/
 
+//=======
+//>>>>>>> 98f12727bfb4ff5488ee06bc4836d9e63b47de84
             base.Update(gameTime);
         }
 
