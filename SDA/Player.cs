@@ -91,7 +91,7 @@ namespace SDA
                 }
             }
 
-            if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
+            if (canMove == true)
 
             foreach(Enemy enemy in enemies)
             {
@@ -103,7 +103,7 @@ namespace SDA
                     }                                                                                                                                                         
                 }
             }
-            if (canMove == true)
+            if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
 
             {
                 size = tempSize;
