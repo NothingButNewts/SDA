@@ -30,7 +30,7 @@ namespace SDA
         }
 
 
-        public override void Move(List<Rectangle> walls,List<Sprite>entities)
+        public override void Move(List<Rectangle> walls,List<Sprite>entities, int attempt)
         {
             Rectangle tempSize = size;
             moveDirection = move.Next(0, 4);
@@ -73,8 +73,16 @@ namespace SDA
             }
             else
             {
-                canMove = true;
-                Move(walls,entities);
+                if (attempt >= 1)
+                {
+                    return;
+                }
+                else
+                {
+                    attempt++;
+                    canMove = true;
+                    Move(walls, entities, attempt);
+                }
             }
         }
         protected override void Spawn()

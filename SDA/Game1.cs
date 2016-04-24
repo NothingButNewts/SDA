@@ -9,7 +9,7 @@ namespace SDA
     /// </summary>
     public class Game1 : Game
     {
-        enum GameState { StartMenu, Instruction, LevelSelect, Game, GameOver } 
+        enum GameState { StartMenu, Game, GameOver } 
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -49,7 +49,6 @@ namespace SDA
             playerCharacter = new Player(new Vector2(64, 64), "Character/Player");
             gameMap = new Map(this.Content);
             currentGameState = GameState.StartMenu;
-           // test = new Ghoul(new Vector2(128, 128), "Character/Ghoul");
             base.Initialize();
         }
 
@@ -61,12 +60,9 @@ namespace SDA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //I call the player and Ghoul LoadContents that are within the Sprite class
             playerCharacter.LoadContent(this.Content);
-        //    test.LoadContent(this.Content);
+      
             gameMap.LoadLevels();
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -118,7 +114,7 @@ namespace SDA
                     //       test.Move(gameMap.ObjectSpaces);
                     foreach (Enemy enemy in gameMap.Enemies)
                     {
-                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites);
+                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0);
                     }
                     playerTurn = true;
 
@@ -128,15 +124,6 @@ namespace SDA
             {
 
             }
-            else if (currentGameState == GameState.Instruction)
-            {
-
-            }
-            else if (currentGameState == GameState.LevelSelect)
-            {
-                
-            }
-
             base.Update(gameTime);
         }
 
