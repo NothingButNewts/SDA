@@ -280,10 +280,8 @@ namespace SDA
                 }
                 if (playerTurn == true)
                 {
-                     
                     playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies,gameMap);
                     playerTurn = playerCharacter.playerTurn;
-                    
 
                 }
                 else if (playerTurn == false)
