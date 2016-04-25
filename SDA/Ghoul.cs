@@ -18,6 +18,7 @@ namespace SDA
         {
             canMove = true;
             move = new Random();
+            
         }
 
 
@@ -40,7 +41,38 @@ namespace SDA
         public override void Move(List<Rectangle> walls,List<Sprite>entities, int attempt,Player player)
         {
             Rectangle tempSize = size;
-            moveDirection = move.Next(0, 4);
+            //moveDirection = move.Next(0, 4);
+
+            if ((Math.Abs(this.size.X - player.size.X) > 75) && (Math.Abs(this.size.Y - player.size.Y) > 75))//if the player is not close then move randomly
+            {
+                moveDirection = move.Next(0, 4);
+            }
+            else
+            {
+                if (this.size.X != player.size.X)//Ghoul moves toward the player
+                {
+                    if (this.size.X > player.size.X)
+                    {
+                        moveDirection = 1;
+                    }
+                    else
+                    {
+                        moveDirection = 3;
+                    }
+                }
+                else
+                {
+                    if (this.size.Y > player.size.Y)
+                    {
+                        moveDirection = 0;
+                    }
+                    else
+                    {
+                        moveDirection = 2;
+                    }
+                }
+            }
+
             switch (moveDirection)
             {
                 case 0: tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
