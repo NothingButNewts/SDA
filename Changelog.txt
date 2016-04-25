@@ -20,3 +20,5 @@ with the rendering of the character/world and movement. Will continue to be impr
 
 4/24/16 1:31 PM: Enemy movement is now in the game for Ghouls, as well as spawning ghouls based on loaded map. Player collision '
 and enemy collision with one another is the next step.
+
+4/24/16 9:52 PM: Modified Ghoul AI, now moves randomly untill the player gets close, then it relentlessly follows the player's every move.
