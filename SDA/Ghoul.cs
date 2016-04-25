@@ -18,6 +18,7 @@ namespace SDA
         {
             canMove = true;
             move = new Random();
+            
         }
 
 

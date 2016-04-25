@@ -25,7 +25,8 @@ namespace SDA
         bool canMove;
         DirectionFacing currentDirection;
         enum DirectionFacing { Up, Down, Left, Right };
-        Map map = new Map();
+        Map map;
+        
 
         public KeyboardState OldKBState { get { return oldKBState; } }
         public int Health
@@ -34,7 +35,7 @@ namespace SDA
             set { health = value; }
         }
 
-        public Player(Vector2 startPos, string asset):base(startPos, asset)
+        public Player(Vector2 startPos, string asset,Map map):base(startPos, asset)
         {
             currentDirection = DirectionFacing.Up;
             dexterity = 1;
@@ -45,14 +46,15 @@ namespace SDA
             expToLevel = 100;
             level = 1;
             playerTurn = true;
-            canMove = true;         
+            canMove = true;
+            this.map = map;
         }
         /// <summary>
         /// Method to move the character, uses input to move character one tile
         /// Checks if the key was pressed during the currentKBState vs. the oldKBState
         /// Up, left, right and down
         /// </summary>
-        public void Move(List<Rectangle> walls,List<Enemy> enemies)
+        public void Move(List<Rectangle> walls,List<Enemy> enemies, Map map)
         {
             playerTurn = true;
             Rectangle tempSize= size;
@@ -128,23 +130,41 @@ namespace SDA
             exp = exp - expToLevel;
         }
 
-        public int Attack(List<Enemy> enemies)
+        public void Attack(List<Enemy> enemies)
         {
-            switch (currentDirection)
+            foreach (Enemy enemy in enemies)
             {
-                case DirectionFacing.Up:
-                   
-                    break;
-                case DirectionFacing.Left:
-                    break;
-                case DirectionFacing.Right:
-                    break;
-                case DirectionFacing.Down:
-                    break;
-                default:
-                    break;
+                switch (currentDirection)
+                {
+                    case DirectionFacing.Up:
+                        if (size.Y - 64 == enemy.size.Y)
+                        {
+                            enemy.Health = enemy.Health - 10;
+                        }
+                            break;
+                    case DirectionFacing.Left:
+                        if (size.X + 64 == enemy.size.X)
+                        {
+                            enemy.Health = enemy.Health - 10;
+                        }
+                        break;
+                    case DirectionFacing.Right:
+                        if (size.X - 64 == enemy.size.X)
+                        {
+                            enemy.Health = enemy.Health - 10;
+                        }
+                        break;
+                    case DirectionFacing.Down:
+                        if (size.Y + 64 == enemy.size.Y)
+                        {
+                            enemy.Health = enemy.Health - 10;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
-            return damage;
+            
         }
 
         //handles player collision with outer walls that surround the map. Takes x and y coordinates as parameters. If the player is able to move, returns true.

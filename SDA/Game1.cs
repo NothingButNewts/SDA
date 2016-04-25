@@ -56,9 +56,9 @@ namespace SDA
         protected override void Initialize()
         {
 
-            playerCharacter = new Player(new Vector2(128, 128), "Character/Player");
+            
             gameMap = new Map(this.Content);
-
+            playerCharacter = new Player(new Vector2(128, 128), "Character/Player",gameMap);
             currentGameState = GameState.Menu;
             menu = MenuState.Menu1;
             currentGameState = GameState.Menu;
@@ -281,8 +281,9 @@ namespace SDA
                 if (playerTurn == true)
                 {
                      
-                    playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies);
+                    playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies,gameMap);
                     playerTurn = playerCharacter.playerTurn;
+                    
 
                 }
                 else if (playerTurn == false)
@@ -329,7 +330,12 @@ namespace SDA
                 playerCharacter.Draw(spriteBatch);
                 foreach (Enemy enemy in gameMap.Enemies)
                 {
-                    enemy.Draw(spriteBatch);
+                    if (enemy.IsAlive == true)
+                    {
+
+
+                        enemy.Draw(spriteBatch);
+                    }
                 }
             }
 
