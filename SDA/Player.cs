@@ -10,7 +10,7 @@ namespace SDA
 {
     class Player : Sprite   
     {
-        int maxHealth; //Maximum health the player has
+        int health; //Maximum health the player has
         int dexterity; //Dexterity measurement, might effect movement or crit chance, not positive
         int strength; //Will effect damage the player does
         int defense; //Reduction to the damage that the player takes
@@ -28,6 +28,12 @@ namespace SDA
         Map map = new Map();
 
         public KeyboardState OldKBState { get { return oldKBState; } }
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
+        }
+
         public Player(Vector2 startPos, string asset):base(startPos, asset)
         {
             currentDirection = DirectionFacing.Up;
@@ -35,12 +41,11 @@ namespace SDA
             strength = 1;
             exp = 0;
             vitality = 1;
-            maxHealth = 90 + (10 * vitality);
+            health = 100;
             expToLevel = 100;
             level = 1;
             playerTurn = true;
-            canMove = true;
-                
+            canMove = true;         
         }
         /// <summary>
         /// Method to move the character, uses input to move character one tile
@@ -51,7 +56,6 @@ namespace SDA
         {
             playerTurn = true;
             Rectangle tempSize= size;
-            //No collision detection is implemented currently, so the player is completely able to clip through walls and go off the screen.
             KeyboardState currentKBState = Keyboard.GetState();
             
             if (oldKBState.IsKeyUp(Keys.W) && currentKBState.IsKeyDown(Keys.W))
@@ -91,7 +95,7 @@ namespace SDA
                 }
             }
 
-            if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
+            
 
             foreach(Enemy enemy in enemies)
             {
@@ -103,7 +107,7 @@ namespace SDA
                     }                                                                                                                                                         
                 }
             }
-            if (canMove == true)
+            if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
 
             {
                 size = tempSize;
