@@ -81,6 +81,10 @@ namespace SDA
                     canMove = false;
                 }
             }
+            if (CheckOuterWalls(tempSize.X, tempSize.Y)== false)
+            {
+                canMove = false;
+            }
             if (canMove == true)
             {
                 size = tempSize;

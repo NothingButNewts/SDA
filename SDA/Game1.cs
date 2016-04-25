@@ -293,6 +293,7 @@ namespace SDA
                         {
 
                             enemy.Attack(playerCharacter);
+
                         }
                         else { 
                         enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0,playerCharacter);
