@@ -281,8 +281,14 @@ namespace SDA
                 if (playerTurn == true)
                 {
                     playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies,gameMap);
+                    
                     playerTurn = playerCharacter.playerTurn;
-
+                    for (int i = 0; i < gameMap.Enemies.Count; i++)
+                    {
+                        if (gameMap.Enemies[i].IsAlive == false)
+                        {
+                            gameMap.Enemies.RemoveAt(i);                        }
+                    }
                 }
                 else if (playerTurn == false)
                 {
@@ -294,14 +300,23 @@ namespace SDA
                             enemy.Attack(playerCharacter);
 
                         }
-                        else { 
-                        enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0,playerCharacter);
+                        else
+                        { 
+                            enemy.Move(gameMap.ObjectSpaces,gameMap.Sprites,0,playerCharacter);
                         }
                     }
                     playerTurn = true;
 
                 }
+                if (playerCharacter.Health <= 0)
+                {
+                    currentGameState = GameState.Menu;
+                    menu = MenuState.GameOver1;
+                    playerCharacter.Health = 100;
+                }
+                
             }
+            
             
             base.Update(gameTime);
         }

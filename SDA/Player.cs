@@ -58,66 +58,71 @@ namespace SDA
         {
             playerTurn = true;
             Rectangle tempSize= size;
-            KeyboardState currentKBState = Keyboard.GetState();
-            
-            if (oldKBState.IsKeyUp(Keys.W) && currentKBState.IsKeyDown(Keys.W))
-            {
-                tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
-                playerTurn = false;
-                currentDirection = DirectionFacing.Up;
+            currentKBState = Keyboard.GetState();
+            if (oldKBState.IsKeyUp(Keys.Space) && currentKBState.IsKeyDown(Keys.Space)){
+                Attack(enemies);
             }
-            else if (oldKBState.IsKeyUp(Keys.A) && currentKBState.IsKeyDown(Keys.A))
-            {
-                tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
-                playerTurn = false;
-                currentDirection = DirectionFacing.Left;
-            }
-            else if (oldKBState.IsKeyUp(Keys.D) && currentKBState.IsKeyDown(Keys.D))
-            {
-                tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
-                playerTurn = false;
-                currentDirection = DirectionFacing.Right;
-            }
-            else if (oldKBState.IsKeyUp(Keys.S) && currentKBState.IsKeyDown(Keys.S))
-            {
-                tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
-                playerTurn = false;
-                currentDirection = DirectionFacing.Down;
-            }
-            oldKBState = currentKBState;
-            foreach (Rectangle item in walls)
-            {
-                if (canMove == true)
+            else {
+                if (oldKBState.IsKeyUp(Keys.W) && currentKBState.IsKeyDown(Keys.W))
                 {
-                    if (item.Intersects(tempSize))
+                    tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
+                    playerTurn = false;
+                    currentDirection = DirectionFacing.Up;
+                }
+                else if (oldKBState.IsKeyUp(Keys.A) && currentKBState.IsKeyDown(Keys.A))
+                {
+                    tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
+                    playerTurn = false;
+                    currentDirection = DirectionFacing.Left;
+                }
+                else if (oldKBState.IsKeyUp(Keys.D) && currentKBState.IsKeyDown(Keys.D))
+                {
+                    tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                    playerTurn = false;
+                    currentDirection = DirectionFacing.Right;
+                }
+                else if (oldKBState.IsKeyUp(Keys.S) && currentKBState.IsKeyDown(Keys.S))
+                {
+                    tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
+                    playerTurn = false;
+                    currentDirection = DirectionFacing.Down;
+                }
+                
+                foreach (Rectangle item in walls)
+                {
+                    if (canMove == true)
                     {
-                        canMove = false;
+                        if (item.Intersects(tempSize))
+                        {
+                            canMove = false;
 
+                        }
                     }
                 }
-            }
 
-            
 
-            foreach(Enemy enemy in enemies)
-            {
-                if (canMove == true)
+
+                foreach (Enemy enemy in enemies)
                 {
-                    if (enemy.size.Intersects(size))
+                    if (canMove == true)
                     {
-                        canMove = false;
-                    }                                                                                                                                                         
+                        if (enemy.size.Intersects(size))
+                        {
+                            canMove = false;
+                        }
+                    }
+                }
+                if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
+
+                {
+                    size = tempSize;
+                }
+                else
+                {
+                    canMove = true;
                 }
             }
-            if (canMove == true && CheckOuterWalls(tempSize.X, tempSize.Y))
-
-            {
-                size = tempSize;
-            }
-            else
-            {
-                canMove = true;
-            }
+            oldKBState = currentKBState;
         }
         /// <summary>
         /// Called when the player's Exp is greater than or equal to expToLevel
@@ -132,39 +137,46 @@ namespace SDA
 
         public void Attack(List<Enemy> enemies)
         {
-            foreach (Enemy enemy in enemies)
-            {
-                switch (currentDirection)
+           
+                foreach (Enemy enemy in enemies)
                 {
-                    case DirectionFacing.Up:
-                        if (size.Y - 64 == enemy.size.Y)
-                        {
-                            enemy.Health = enemy.Health - 10;
-                        }
+                    switch (currentDirection)
+                    {
+                        case DirectionFacing.Up:
+                            if (size.Y - 64 == enemy.size.Y)
+                            {
+                                enemy.Health = enemy.Health - 10;
+                            }
                             break;
-                    case DirectionFacing.Left:
-                        if (size.X + 64 == enemy.size.X)
-                        {
-                            enemy.Health = enemy.Health - 10;
-                        }
-                        break;
-                    case DirectionFacing.Right:
-                        if (size.X - 64 == enemy.size.X)
-                        {
-                            enemy.Health = enemy.Health - 10;
-                        }
-                        break;
-                    case DirectionFacing.Down:
-                        if (size.Y + 64 == enemy.size.Y)
-                        {
-                            enemy.Health = enemy.Health - 10;
-                        }
-                        break;
-                    default:
-                        break;
+                        case DirectionFacing.Left:
+                            if (size.X + 64 == enemy.size.X)
+                            {
+                                enemy.Health = enemy.Health - 10;
+                            }
+                            break;
+                        case DirectionFacing.Right:
+                            if (size.X - 64 == enemy.size.X)
+                            {
+                                enemy.Health = enemy.Health - 10;
+                            }
+                            break;
+                        case DirectionFacing.Down:
+                            if (size.Y + 64 == enemy.size.Y)
+                            {
+                                enemy.Health = enemy.Health - 10;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                if (enemy.Health <= 0)
+                {
+                    enemy.IsAlive = false;
                 }
-            }
+                }
+                
             
+
         }
 
         //handles player collision with outer walls that surround the map. Takes x and y coordinates as parameters. If the player is able to move, returns true.

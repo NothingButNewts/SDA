@@ -14,6 +14,7 @@ namespace SDA
         bool canMove;
         Random move;
         int moveDirection; // 0 moves up, 1 moves left, 2 moves down, 3 moves right
+
         public Ghoul(Vector2 startPos, string asset):base(startPos, asset)
         {
             canMove = true;
@@ -164,5 +165,6 @@ namespace SDA
             }
             return false;
         }
+        
     }
 }
