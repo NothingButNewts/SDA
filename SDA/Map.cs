@@ -101,7 +101,7 @@ namespace SDA
             int row = 1;
             int column = 1;
             int i = 0;
-            foreach (int tile in levelMap[roomNumber])
+            foreach (int tile in floorMap[roomNumber])
             {
                 if (tile == 6)
                 {
@@ -146,7 +146,7 @@ namespace SDA
             int row = 0;
             int column = 0;
             int i = 0;
-            foreach (int tile in levelMap[roomNumber])//Current Roomnumber is just set to 0 so it only loads one room. No need to load
+            foreach (int tile in floorMap[roomNumber])//Current Roomnumber is just set to 0 so it only loads one room. No need to load
                                                       //any other room at the current moment since I do not have any sort of 
                                                       //implementation for transitioning between rooms.
             {

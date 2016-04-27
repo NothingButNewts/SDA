@@ -87,6 +87,31 @@ namespace SDA
                     playerTurn = false;
                     currentDirection = DirectionFacing.Down;
                 }
+
+                //map transitioning
+                if(tempSize.X < 0)
+                {
+                    ChangeRoom("left");
+                    tempSize.X = 770;
+                }
+
+                if(tempSize.X > 770)
+                {
+                    ChangeRoom("right");
+                    tempSize.X = 0;
+                }
+
+                if(tempSize.Y < 0)
+                {
+                    ChangeRoom("up");
+                    tempSize.Y = 512;
+                }
+
+                if(tempSize.Y > 512)
+                {
+                    ChangeRoom("down");
+                    tempSize.Y = 0;
+                }
                 
                 foreach (Rectangle item in walls)
                 {
@@ -211,113 +236,99 @@ namespace SDA
            if(dir == "left")
             {
                 if (map.RoomNumber == 1) map.RoomNumber = 0;
-                if (map.RoomNumber == 2) map.RoomNumber = 1;
-                if (map.RoomNumber == 4) map.RoomNumber = 3;
-                if (map.RoomNumber == 5) map.RoomNumber = 4;
-                if (map.RoomNumber == 7) map.RoomNumber = 6;
-                if (map.RoomNumber == 8) map.RoomNumber = 7;
+                else if (map.RoomNumber == 2) map.RoomNumber = 1;
+                else if (map.RoomNumber == 4) map.RoomNumber = 3;
+                else if (map.RoomNumber == 5) map.RoomNumber = 4;
+                else if (map.RoomNumber == 7) map.RoomNumber = 6;
+                else map.RoomNumber = 7;
             }
 
-            if (dir == "right")
+            else if (dir == "right")
             {
                 if (map.RoomNumber == 0) map.RoomNumber = 1;
-                if (map.RoomNumber == 1) map.RoomNumber = 2;
-                if (map.RoomNumber == 3) map.RoomNumber = 4;
-                if (map.RoomNumber == 4) map.RoomNumber = 5;
-                if (map.RoomNumber == 6) map.RoomNumber = 7;
-                if (map.RoomNumber == 7) map.RoomNumber = 8;
+                else if (map.RoomNumber == 1) map.RoomNumber = 2;
+                else if (map.RoomNumber == 3) map.RoomNumber = 4;
+                else if (map.RoomNumber == 4) map.RoomNumber = 5;
+                else if (map.RoomNumber == 6) map.RoomNumber = 7;
+                else map.RoomNumber = 8;
             }
 
-            if (dir == "up")
+            else if (dir == "up")
             {
                 if (map.RoomNumber == 3) map.RoomNumber = 0;
-                if (map.RoomNumber == 4) map.RoomNumber = 1;
-                if (map.RoomNumber == 5) map.RoomNumber = 2;
-                if (map.RoomNumber == 6) map.RoomNumber = 3;
-                if (map.RoomNumber == 7) map.RoomNumber = 4;
-                if (map.RoomNumber == 8) map.RoomNumber = 5;
-            }
-
-            if (dir == "down")
-            {
-                if (map.RoomNumber == 0) map.RoomNumber = 3;
-                if (map.RoomNumber == 1) map.RoomNumber = 4;
-                if (map.RoomNumber == 2) map.RoomNumber = 5;
-                if (map.RoomNumber == 3) map.RoomNumber = 6;
-                if (map.RoomNumber == 4) map.RoomNumber = 7;
-                if (map.RoomNumber == 5) map.RoomNumber = 8;
-            }
-
-            if (map.RoomNumber == 0)
-            {
-                map.Doors[0] = false;
-                map.Doors[1] = false;
-                map.Doors[2] = true;
-                map.Doors[3] = true;
-            }
-
-            else if (map.RoomNumber == 1)
-            {
-                map.Doors[0] = true;
-                map.Doors[1] = false;
-                map.Doors[2] = true;
-                map.Doors[3] = true;
-            }
-
-            else if (map.RoomNumber == 2)
-            {
-                map.Doors[0] = true;
-                map.Doors[1] = false;
-                map.Doors[2] = false;
-                map.Doors[3] = true;
-            }
-
-            else if (map.RoomNumber == 3)
-            {
-                map.Doors[0] = false;
-                map.Doors[1] = true;
-                map.Doors[2] = true;
-                map.Doors[3] = true;
-            }
-
-            else if (map.RoomNumber == 4)
-            {
-                map.Doors[0] = true;
-                map.Doors[1] = true;
-                map.Doors[2] = true;
-                map.Doors[3] = true;
-            }
-
-            else if (map.RoomNumber == 5)
-            {
-                map.Doors[0] = true;
-                map.Doors[1] = true;
-                map.Doors[2] = false;
-                map.Doors[3] = true;
-            }
-
-            else if (map.RoomNumber == 6)
-            {
-                map.Doors[0] = false;
-                map.Doors[1] = true;
-                map.Doors[2] = true;
-                map.Doors[3] = false;
-            }
-
-            else if (map.RoomNumber == 7)
-            {
-                map.Doors[0] = true;
-                map.Doors[1] = true;
-                map.Doors[2] = true;
-                map.Doors[3] = false;
+                else if (map.RoomNumber == 4) map.RoomNumber = 1;
+                else if (map.RoomNumber == 5) map.RoomNumber = 2;
+                else if (map.RoomNumber == 6) map.RoomNumber = 3;
+                else if (map.RoomNumber == 7) map.RoomNumber = 4;
+                else map.RoomNumber = 5;
             }
 
             else
             {
-                map.Doors[0] = true;
-                map.Doors[1] = true;
-                map.Doors[2] = false;
-                map.Doors[3] = false;
+                if (map.RoomNumber == 0) map.RoomNumber = 3;
+                else if (map.RoomNumber == 1) map.RoomNumber = 4;
+                else if (map.RoomNumber == 2) map.RoomNumber = 5;
+                else if (map.RoomNumber == 3) map.RoomNumber = 6;
+                else if (map.RoomNumber == 4) map.RoomNumber = 7;
+                else map.RoomNumber = 8;
+            }
+
+            switch (map.RoomNumber)
+            {
+                case 0:
+                    map.Doors[0] = false;
+                    map.Doors[1] = false;
+                    map.Doors[2] = true;
+                    map.Doors[3] = true;
+                    break;
+                case 1:
+                    map.Doors[0] = true;
+                    map.Doors[1] = false;
+                    map.Doors[2] = true;
+                    map.Doors[3] = true;
+                    break;
+                case 2:
+                    map.Doors[0] = true;
+                    map.Doors[1] = false;
+                    map.Doors[2] = false;
+                    map.Doors[3] = true;
+                    break;
+                case 3:
+                    map.Doors[0] = false;
+                    map.Doors[1] = true;
+                    map.Doors[2] = true;
+                    map.Doors[3] = true;
+                    break;
+                case 4:
+                    map.Doors[0] = true;
+                    map.Doors[1] = true;
+                    map.Doors[2] = true;
+                    map.Doors[3] = true;
+                    break;
+                case 5:
+                    map.Doors[0] = true;
+                    map.Doors[1] = true;
+                    map.Doors[2] = false;
+                    map.Doors[3] = true;
+                    break;
+                case 6:
+                    map.Doors[0] = false;
+                    map.Doors[1] = true;
+                    map.Doors[2] = true;
+                    map.Doors[3] = false;
+                    break;
+                case 7:
+                    map.Doors[0] = true;
+                    map.Doors[1] = true;
+                    map.Doors[2] = true;
+                    map.Doors[3] = false;
+                    break;
+                case 8:
+                    map.Doors[0] = true;
+                    map.Doors[1] = true;
+                    map.Doors[2] = false;
+                    map.Doors[3] = false;
+                    break;
             }
         }
     }
