@@ -205,13 +205,9 @@ namespace LevelEditor
             {
                 spriteBatch.DrawString(font, "Spawn Shade", new Vector2(316, 10), Color.Goldenrod);
             }
-            //Ladder Description
+            //Save Confirmation Description
             if (canSave)
             {
-                if (Ez(25, 90, 405, 455))
-                {
-                    spriteBatch.DrawString(font, "Ladder", new Vector2(355, 10), Color.Goldenrod);
-                }
                 if (Ez(713, 783, 405, 455))
                 {
                     spriteBatch.DrawString(font, "Are you sure?", new Vector2(328, 10), Color.Goldenrod);
@@ -355,73 +351,59 @@ namespace LevelEditor
         //parameters: row and column of the space and the number referencing the selected sprite
         private void Place(int col, int row)
         {
-            if (!canSave)
+            if (mState.LeftButton == ButtonState.Pressed)
             {
-                if (mState.LeftButton == ButtonState.Pressed)
+                switch (selected)
                 {
-                    switch (selected)
-                    {
-                        case 0: //player spawn
+                    case 0: //player spawn
+                        {
+                            if (checkNumSpawns(0))
                             {
-                                if (checkNumSpawns(0))
-                                {
-                                    level[row, col].BinNum = 0;
-                                    level[row, col].Draw = true;
-                                }
-                                break;
-                            }
-                        case 1: //wall
-                            {
-                                level[row, col].BinNum = 1;
+                                level[row, col].BinNum = 0;
                                 level[row, col].Draw = true;
-                                break;
                             }
-                        case 2: //clear space
-                            {
-                                level[row, col].BinNum = 2;
-                                level[row, col].Draw = false;
-                                break;
-                            }
-                        case 3: //save game
-                            {
-                                break;
-                            }
-                        case 4: //spawn vamp
-                            {
-                                level[row, col].BinNum = 4;
-                                level[row, col].Draw = true;
-                                break;
-                            }
-                        case 5: //spawn blob
-                            {
-                                level[row, col].BinNum = 5;
-                                level[row, col].Draw = true;
-                                break;
-                            }
-                        case 6: //spawn ghoul
-                            {
-                                level[row, col].BinNum = 6;
-                                level[row, col].Draw = true;
-                                break;
-                            }
-                        case 7: //spawn shade
-                            {
-                                level[row, col].BinNum = 7;
-                                level[row, col].Draw = true;
-                                break;
-                            }
-                    }
-                }
-            }
-            else
-            {
-                if (mState.LeftButton == ButtonState.Pressed)
-                {
-                    if (checkNumSpawns(8))
-                    {
-                        level[row, col].BinNum = 8;
-                        level[row, col].Draw = true;
-                    }
+                            break;
+                        }
+                    case 1: //wall
+                        {
+                            level[row, col].BinNum = 1;
+                            level[row, col].Draw = true;
+                            break;
+                        }
+                    case 2: //clear space
+                        {
+                            level[row, col].BinNum = 2;
+                            level[row, col].Draw = false;
+                            break;
+                        }
+                    case 3: //save game
+                        {
+                            break;
+                        }
+                    case 4: //spawn vamp
+                        {
+                            level[row, col].BinNum = 4;
+                            level[row, col].Draw = true;
+                            break;
+                        }
+                    case 5: //spawn blob
+                        {
+                            level[row, col].BinNum = 5;
+                            level[row, col].Draw = true;
+                            break;
+                        }
+                    case 6: //spawn ghoul
+                        {
+                            level[row, col].BinNum = 6;
+                            level[row, col].Draw = true;
+                            break;
+                        }
+                    case 7: //spawn shade
+                        {
+                            level[row, col].BinNum = 7;
+                            level[row, col].Draw = true;
+                            break;
+                        }
                 }
             }
         }
@@ -475,11 +457,6 @@ namespace LevelEditor
                                     spriteBatch.Draw(shade, level[i, j].GetPos(), Color.White);
                                     break;
                                 }
-                            case 8: //ladder
-                                {
-                                    spriteBatch.Draw(ladder, level[i, j].GetPos(), Color.White);
-                                    break;
-                                }
                         }
                     }
                 }
@@ -489,16 +466,6 @@ namespace LevelEditor
         //Adds two new buttons, one to add a ladder to the level and one to confirm the save game
         private void SaveGame()
         {
-            spriteBatch.Draw(ladder, new Rectangle(30, 418, 60, 50), Color.White);
-            if (Ez(25, 90, 405, 455))
-            {
-                spriteBatch.Draw(highlight, new Rectangle(17, 403, 70, 70), Color.White);
-                if (mState.LeftButton == ButtonState.Pressed)
-                {
-                    spriteBatch.Draw(highlight, new Rectangle(17, 403, 70, 70), Color.Blue);
-                    selected = select[8];
-                }
-            }
             spriteBatch.Draw(save, new Rectangle(718, 418, 60, 50), Color.White);
             if (Ez(713, 783, 405, 455))
             {
