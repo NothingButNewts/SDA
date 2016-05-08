@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace SDA
 {
@@ -65,7 +66,37 @@ namespace SDA
             currentGameState = GameState.Menu;
             menu = MenuState.Menu1;
             currentGameState = GameState.Menu;
+            ReadScore("hiscore.dat");
             base.Initialize();
+        }
+
+        /*writes out a new high score to the hiscore.dat file
+        or creates a new file if it can't find one
+        param: string filename, the name of the file to be opened
+        return: none*/
+        public void WriteScore(string fileName)
+        {
+            FileStream str = File.Open(fileName, FileMode.Create);
+            BinaryWriter output = new BinaryWriter(str);
+            output.Write(hiscore);
+            output.Close();
+        }
+
+        /*tries to open the hiscore.dat file containing
+        the high score and read it. 
+        param: string filename, the name of the file to be opened
+        return: none*/
+        public void ReadScore(string fileName)
+        {
+            try
+            {
+                BinaryReader input = new BinaryReader(File.Open(fileName, FileMode.Open));
+                hiscore = input.ReadInt32();
+            }
+            catch (FileNotFoundException)
+            {
+                hiscore = 0;
+            }
         }
 
         /// <summary>
@@ -228,6 +259,7 @@ namespace SDA
             if (menu == MenuState.Menu1)
             {
                 spriteBatch.Draw(background1, new Vector2(0.0f, 0.0f), Color.White);
+                spriteBatch.DrawString(text, "High Score: " + hiscore, new Vector2(0.0f, 555.0f), Color.DarkRed);
             }
             else if (menu == MenuState.Menu2)
             {
@@ -252,10 +284,12 @@ namespace SDA
             else if (menu == MenuState.GameOver1)
             {
                 spriteBatch.Draw(background7, new Vector2(0.0f, 0.0f), Color.White);
+                spriteBatch.DrawString(text, "hiscore: "+hiscore, new Vector2(0.0f, 32.0f), Color.DarkRed);
             }
             else if (menu == MenuState.GameOver2)
             {
                 spriteBatch.Draw(background8, new Vector2(0.0f, 0.0f), Color.White);
+                spriteBatch.DrawString(text, "hiscore: " + hiscore, new Vector2(0.0f, 32.0f), Color.DarkRed);
             }
         }
 
@@ -317,6 +351,11 @@ namespace SDA
                     menu = MenuState.GameOver1;
                     playerCharacter.Health = 100;
                     score = playerCharacter.Exp * 2;
+                    if (score > hiscore)
+                    {
+                        hiscore = score;
+                        WriteScore(score.ToString());
+                    }
                 }
                 
             }
