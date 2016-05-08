@@ -16,9 +16,8 @@ namespace SDA
         int expValue;
         bool isAlive;
         Map map = new Map();
-        public Enemy(Vector2 startPos, string asset):base(startPos, asset)
+        public Enemy(Vector2 startPos, string asset, int floor):base(startPos, asset)
         {
-            health = 100;
             isAlive = true;
         }
 
