@@ -15,6 +15,7 @@ namespace SDA
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont text;
         bool playerTurn;
         Player playerCharacter;  
         Map gameMap;
@@ -62,7 +63,6 @@ namespace SDA
             currentGameState = GameState.Menu;
             menu = MenuState.Menu1;
             currentGameState = GameState.Menu;
-
             base.Initialize();
         }
 
@@ -74,6 +74,7 @@ namespace SDA
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            text = Content.Load<SpriteFont>("SpriteFont1");
             playerCharacter.LoadContent(this.Content);
       
             gameMap.LoadLevels();
