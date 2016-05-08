@@ -29,6 +29,8 @@ namespace SDA
         Texture2D background6;
         Texture2D background7;
         Texture2D background8;
+        int score; //the players score, based on their exp, calculated at the end
+        int hiscore; // the high score of the game
 
         //Temporary bool to test the enemy spawning, should change when map transitioning is in
         bool mapLoaded;
@@ -314,6 +316,7 @@ namespace SDA
                     currentGameState = GameState.Menu;
                     menu = MenuState.GameOver1;
                     playerCharacter.Health = 100;
+                    score = playerCharacter.Exp * 2;
                 }
                 
             }

@@ -35,6 +35,12 @@ namespace SDA
             set { health = value; }
         }
 
+        public int Exp
+        {
+            get { return exp; }
+            set { exp = value; }
+        }
+
         public Player(Vector2 startPos, string asset,Map map):base(startPos, asset)
         {
             currentDirection = DirectionFacing.Up;
