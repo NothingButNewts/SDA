@@ -20,4 +20,3 @@ ORDER OF NUMBERS IN BINARY FILE:
 05 00 00 00 - Spawn Blob
 06 00 00 00 - Spawn Ghoul
 07 00 00 00 - Spawn Shade
-08 00 00 00 - Ladder

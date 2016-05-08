@@ -12,7 +12,7 @@ namespace SDA
 {
     class Map
     {
-        bool[] doors = { false, false, true, true }; //array of booleans to show what doors are present in a given room. 0 is the left wall and it goes clockwise.
+        bool[] doors = { false, false, true, false }; //array of booleans to show what doors are present in a given room. 0 is the left wall and it goes clockwise.
         int roomNumber;
         int tileWidth;
         int tileHeight;
@@ -53,7 +53,7 @@ namespace SDA
             enemies = new List<Enemy>();
             sprites = new List<Sprite>();
             roomSelect = new Random();
-            floorMap = new int[9][];
+            floorMap = new int[10][];
         }
 
         //default constructor used in player class to get access to door positions
@@ -91,7 +91,7 @@ namespace SDA
         /// </summary>
         public void LoadFloor()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
                 floorMap[i] = levelMap[roomSelect.Next(0, levelMap.Count)];        
             }
@@ -162,8 +162,6 @@ namespace SDA
                 }
                 else if (tile == 4)
                 {
-                  //  enemies.Add(new Ghoul(new Vector2(64 * column, 64 * row),"Character/Ghoul"));
-                    //objectSpaces.Add(new Rectangle(column * 64, row * 64, tileWidth, tileHeight));
                     //i++;
                 }
                 else if (tile == 5)
