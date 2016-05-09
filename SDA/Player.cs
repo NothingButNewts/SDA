@@ -120,7 +120,7 @@ namespace SDA
                 {
                     if (canMove == true)
                     {
-                        if (enemy.size.Intersects(size))
+                        if (enemy.size.Intersects(tempSize))
                         {
                             canMove = false;
                         }
@@ -166,7 +166,7 @@ namespace SDA
                         break;
 
                     case DirectionFacing.Left:
-                        tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                        tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
                         if (tempSize.Intersects(enemy.size))
                         {
                             enemy.Health = enemy.Health - damage;
@@ -174,7 +174,7 @@ namespace SDA
                         break;
 
                     case DirectionFacing.Right:
-                        tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
+                        tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
                         if (tempSize.Intersects(enemy.size))
                         {
                             enemy.Health = enemy.Health - damage;

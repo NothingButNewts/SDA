@@ -328,7 +328,7 @@ namespace SDA
                     }
                 }
                 else if (playerTurn == false)
-                {
+                {                    
                     foreach (Enemy enemy in gameMap.Enemies)
                     {
                         if (enemy.DetectPlayer(playerCharacter))
