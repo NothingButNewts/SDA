@@ -16,7 +16,7 @@ namespace SDA
         int expValue;
         bool isAlive;
         Map map = new Map();
-        public Enemy(Vector2 startPos, string asset, int floor):base(startPos, asset)
+        public Enemy(Vector2 startPos, string asset):base(startPos, asset)
         {
             isAlive = true;
         }
@@ -27,6 +27,8 @@ namespace SDA
 
         public int Health { get { return health; } set { health = value; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
+        public int ExpValue { get { return expValue; } set { expValue = value; } }
+
         //deals with enemy collision with outer walls to make sure they can't leave the room
         public bool CheckOuterWalls(int x, int y)
         {

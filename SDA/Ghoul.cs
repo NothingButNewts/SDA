@@ -15,12 +15,12 @@ namespace SDA
         Random move;
         int moveDirection; // 0 moves up, 1 moves left, 2 moves down, 3 moves right
 
-        public Ghoul(Vector2 startPos, string asset, int floor):base(startPos, asset, floor)
+        public Ghoul(Vector2 startPos, string asset, int floor):base(startPos, asset )
         {
             canMove = true;
             move = new Random();
             base.Health = (int)(50 * (Math.Pow(1.25,floor)));
-
+            base.ExpValue = base.Health / 10;
         }
 
 

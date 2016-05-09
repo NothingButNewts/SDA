@@ -317,7 +317,7 @@ namespace SDA
                 }
                 if (playerTurn == true)
                 {
-                    playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies,gameMap);
+                    playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies,gameMap,this.Content);
                     
                     playerTurn = playerCharacter.playerTurn;
                     for (int i = 0; i < gameMap.Enemies.Count; i++)
@@ -349,6 +349,7 @@ namespace SDA
                 {
                     currentGameState = GameState.Menu;
                     menu = MenuState.GameOver1;
+                    playerCharacter.Reset(Content);
                     playerCharacter.Health = 100;
                     score = playerCharacter.Exp * 2;
                     if (score > hiscore)

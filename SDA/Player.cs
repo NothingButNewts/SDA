@@ -49,18 +49,19 @@ namespace SDA
             exp = 0;
             vitality = 1;
             health = 100;
-            expToLevel = 100;
+            expToLevel = 40;
             level = 1;
             playerTurn = true;
             canMove = true;
             this.map = map;
+            damage = 10;
         }
         /// <summary>
         /// Method to move the character, uses input to move character one tile
         /// Checks if the key was pressed during the currentKBState vs. the oldKBState
         /// Up, left, right and down
         /// </summary>
-        public void Move(List<Rectangle> walls,List<Enemy> enemies, Map map)
+        public void Move(List<Rectangle> walls,List<Enemy> enemies, Map map, ContentManager content)
         {
             playerTurn = true;
             Rectangle tempSize= size;
@@ -97,7 +98,7 @@ namespace SDA
                 //map transitioning
                 if (tempSize.X > 770)
                 {
-                    ChangeRoom();
+                    ChangeRoom(content);
                     tempSize.X = 64;
                 }
                 
@@ -146,45 +147,60 @@ namespace SDA
             level++;
             expToLevel = (int)(expToLevel * 1.5);
             exp = exp - expToLevel;
+            damage = (10 * (int)(Math.Pow(1.15, strength)));
         }
 
         public void Attack(List<Enemy> enemies)
         {
-           
+            Rectangle tempSize = size;
                 foreach (Enemy enemy in enemies)
                 {
-                    switch (currentDirection)
-                    {
-                        case DirectionFacing.Up:
-                            if (size.Y - 64 == enemy.size.Y)
-                            {
-                                enemy.Health = enemy.Health - 10;
-                            }
-                            break;
-                        case DirectionFacing.Left:
-                            if (size.X + 64 == enemy.size.X)
-                            {
-                                enemy.Health = enemy.Health - 10;
-                            }
-                            break;
-                        case DirectionFacing.Right:
-                            if (size.X - 64 == enemy.size.X)
-                            {
-                                enemy.Health = enemy.Health - 10;
-                            }
-                            break;
-                        case DirectionFacing.Down:
-                            if (size.Y + 64 == enemy.size.Y)
-                            {
-                                enemy.Health = enemy.Health - 10;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                switch (currentDirection)
+                {
+                    case DirectionFacing.Up:
+                        tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
+                        if (tempSize.Intersects(enemy.size))
+                        {
+                            enemy.Health = enemy.Health - damage;
+                        }
+                        break;
+
+                    case DirectionFacing.Left:
+                        tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                        if (tempSize.Intersects(enemy.size))
+                        {
+                            enemy.Health = enemy.Health - damage;
+                        }
+                        break;
+
+                    case DirectionFacing.Right:
+                        tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
+                        if (tempSize.Intersects(enemy.size))
+                        {
+                            enemy.Health = enemy.Health - damage;
+                        }
+                        break;
+
+                    case DirectionFacing.Down:
+
+                        tempSize = new Rectangle(size.X, size.Y + 64, size.Width, size.Height);
+                        if (tempSize.Intersects(enemy.size))
+                        {
+                            enemy.Health = enemy.Health - damage;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
                 if (enemy.Health <= 0)
                 {
                     enemy.IsAlive = false;
+                    exp += enemy.ExpValue;
+                    if(exp>= expToLevel)
+                    {
+                        Level();
+                    }
                 }
                 }
                 
@@ -219,7 +235,7 @@ namespace SDA
             return true;
         }
 
-        public void ChangeRoom()
+        public void ChangeRoom(ContentManager content)
         {
             if (map.RoomNumber == 9)
             {
@@ -227,6 +243,16 @@ namespace SDA
                 return;
             }
             map.RoomNumber++;
+            map.LoadRoom(content);
+        }
+
+        public void Reset(ContentManager content)
+        {
+            size = new Rectangle(128, 128, size.Width, size.Height);
+            map.RoomNumber = 0;
+            map.LoadRoom(content);
+            
+            
         }
     }
 }

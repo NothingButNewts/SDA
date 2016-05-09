@@ -101,12 +101,12 @@ namespace SDA
             int row = 1;
             int column = 1;
             int i = 0;
+            enemies.Clear();
             foreach (int tile in floorMap[roomNumber])
             {
                 if (tile == 6)
                 {
-                    enemies.Add(new Ghoul(new Vector2(tileHeight * column, tileWidth * row),"Character/Ghoul"));
-                   
+                     enemies.Add(new Ghoul(new Vector2(tileHeight * column, tileWidth * row),"Character/Ghoul",roomNumber));
                     sprites.Add(enemies[i]);
                     i++;
                 }
