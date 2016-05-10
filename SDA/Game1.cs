@@ -259,7 +259,7 @@ namespace SDA
             if (menu == MenuState.Menu1)
             {
                 spriteBatch.Draw(background1, new Vector2(0.0f, 0.0f), Color.White);
-                spriteBatch.DrawString(text, "High Score: " + hiscore, new Vector2(0.0f, 555.0f), Color.DarkRed);
+                //spriteBatch.DrawString(text, "High Score: " + hiscore, new Vector2(0.0f, 555.0f), Color.White);
             }
             else if (menu == MenuState.Menu2)
             {
@@ -284,12 +284,12 @@ namespace SDA
             else if (menu == MenuState.GameOver1)
             {
                 spriteBatch.Draw(background7, new Vector2(0.0f, 0.0f), Color.White);
-                spriteBatch.DrawString(text, "hiscore: "+hiscore, new Vector2(0.0f, 32.0f), Color.DarkRed);
+                spriteBatch.DrawString(text, "hiscore: "+hiscore, new Vector2(0.0f, 32.0f), Color.White);
             }
             else if (menu == MenuState.GameOver2)
             {
                 spriteBatch.Draw(background8, new Vector2(0.0f, 0.0f), Color.White);
-                spriteBatch.DrawString(text, "hiscore: " + hiscore, new Vector2(0.0f, 32.0f), Color.DarkRed);
+                spriteBatch.DrawString(text, "hiscore: " + hiscore, new Vector2(0.0f, 32.0f), Color.White);
             }
         }
 

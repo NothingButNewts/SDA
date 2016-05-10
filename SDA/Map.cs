@@ -83,7 +83,7 @@ namespace SDA
                     }
                     levelMap.Add(tileMap);
                 }
-                }
+            }
         }
 
         /// <summary>
