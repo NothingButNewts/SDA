@@ -57,6 +57,7 @@ namespace SDA
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+         
         protected override void Initialize()
         {
 
@@ -66,7 +67,7 @@ namespace SDA
             currentGameState = GameState.Menu;
             menu = MenuState.Menu1;
             currentGameState = GameState.Menu;
-            ReadScore("hiscore.dat");
+            ReadScore();
             base.Initialize();
         }
 
@@ -86,11 +87,11 @@ namespace SDA
         the high score and read it. 
         param: string filename, the name of the file to be opened
         return: none*/
-        public void ReadScore(string fileName)
+        public void ReadScore()
         {
             try
             {
-                BinaryReader input = new BinaryReader(File.Open(fileName, FileMode.Open));
+                BinaryReader input = new BinaryReader(File.Open("hiscore", FileMode.Open));
                 hiscore = input.ReadInt32();
             }
             catch (FileNotFoundException)
@@ -141,7 +142,7 @@ namespace SDA
             switch (menu)
             {
                 case MenuState.Menu1:
-                    if (state.IsKeyDown(Keys.Down))
+                    if (state.IsKeyDown(Keys.S))
                     {
                         menu = MenuState.Menu2;
                         break;
@@ -157,7 +158,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.Menu2:
-                    if (state.IsKeyDown(Keys.Up))
+                    if (state.IsKeyDown(Keys.W))
                     {
                         menu = MenuState.Menu1;
                         break;
@@ -170,7 +171,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.Instruct1:
-                    if (state.IsKeyDown(Keys.Right))
+                    if (state.IsKeyDown(Keys.D))
                     {
                         menu = MenuState.Instruct2;
                         break;
@@ -184,7 +185,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.Instruct2:
-                    if (state.IsKeyDown(Keys.Left))
+                    if (state.IsKeyDown(Keys.A))
                     {
                         menu = MenuState.Instruct1;
                         break;
@@ -197,7 +198,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.Controls1:
-                    if (state.IsKeyDown(Keys.Right))
+                    if (state.IsKeyDown(Keys.D))
                     {
                         menu = MenuState.Controls2;
                         break;
@@ -210,7 +211,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.Controls2:
-                    if (state.IsKeyDown(Keys.Left))
+                    if (state.IsKeyDown(Keys.A))
                     {
                         menu = MenuState.Controls1;
                         break;
@@ -225,7 +226,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.GameOver1:
-                    if (state.IsKeyDown(Keys.Right))
+                    if (state.IsKeyDown(Keys.D))
                     {
                         menu = MenuState.GameOver2;
                         break;
@@ -238,7 +239,7 @@ namespace SDA
                     }
                     else { break; }
                 case MenuState.GameOver2:
-                    if (state.IsKeyDown(Keys.Left))
+                    if (state.IsKeyDown(Keys.A))
                     {
                         menu = MenuState.GameOver1;
                         break;
@@ -355,7 +356,7 @@ namespace SDA
                     if (score > hiscore)
                     {
                         hiscore = score;
-                        WriteScore(score.ToString());
+                        WriteScore("hiscore");
                     }
                 }
                 

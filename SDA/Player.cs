@@ -147,6 +147,7 @@ namespace SDA
             level++;
             expToLevel = (int)(expToLevel * 1.5);
             exp = exp - expToLevel;
+            strength++;
             damage = (10 * (int)(Math.Pow(1.15, strength)));
         }
 
