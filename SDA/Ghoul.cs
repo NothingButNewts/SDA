@@ -43,7 +43,6 @@ namespace SDA
         public override void Move(List<Rectangle> walls,List<Sprite>entities, int attempt,Player player)
         {
             Rectangle tempSize = size;
-            //moveDirection = move.Next(0, 4);
 
             if ((Math.Abs(this.size.X - player.size.X) > 75) && (Math.Abs(this.size.Y - player.size.Y) > 75))//if the player is not close then move randomly
             {
@@ -145,7 +144,8 @@ namespace SDA
             {
                 switch (i)
                 {
-                    case 0: tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
+                    case 0:
+                        tempSize = new Rectangle(size.X + 64, size.Y, size.Width, size.Height);
                         break;
                     case 1:
                         tempSize = new Rectangle(size.X - 64, size.Y, size.Width, size.Height);
@@ -156,7 +156,8 @@ namespace SDA
                     case 3:
                         tempSize = new Rectangle(size.X, size.Y - 64, size.Width, size.Height);
                         break;
-                    default: break;
+                    default:
+                        break;
                 }
                 if (tempSize.Intersects(player.size))
                 {

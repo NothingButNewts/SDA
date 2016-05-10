@@ -106,7 +106,7 @@ namespace SDA
             {
                 if (tile == 6)
                 {
-                     enemies.Add(new Ghoul(new Vector2(tileHeight * column, tileWidth * row),"Character/Ghoul",roomNumber));
+                    enemies.Add(new Ghoul(new Vector2(tileHeight * column, tileWidth * row),"Character/Ghoul",roomNumber));
                     sprites.Add(enemies[i]);
                     i++;
                 }
