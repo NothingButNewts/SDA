@@ -10,7 +10,8 @@ namespace SDA
 {
     class Player : Sprite   
     {
-        int health; //Maximum health the player has
+        int health; //Current health that the player has
+        int maxHealth; //Maximum health the player has
         int dexterity; //Dexterity measurement, might effect movement or crit chance, not positive
         int strength; //Will effect damage the player does
         int defense; //Reduction to the damage that the player takes
@@ -19,12 +20,17 @@ namespace SDA
         int level; //Players current level
         int vitality; //Stat to effect how much max health the player has
         int damage; //Damage that the player does, based on weapon and strength
+        int healthPot; //Tracks how many health potions the player has.
+
         KeyboardState oldKBState; //Becomes equal to the previous currentKBState
         KeyboardState currentKBState; //Checks the current keyboard state
+
         public bool playerTurn; //Bool to determine if it is the player's turn or not, changes on enemy turns and player turns
         bool canMove;
+
         DirectionFacing currentDirection;
         enum DirectionFacing { Up, Down, Left, Right };
+
         Map map;
         
 
@@ -35,6 +41,7 @@ namespace SDA
             set { health = value; }
         }
 
+        
         public int Exp
         {
             get { return exp; }
@@ -48,13 +55,15 @@ namespace SDA
             strength = 1;
             exp = 0;
             vitality = 1;
-            health = 100;
+            maxHealth = 100;
+            health = maxHealth;
             expToLevel = 40;
             level = 1;
             playerTurn = true;
             canMove = true;
             this.map = map;
             damage = 10;
+            healthPot = 3;
         }
         /// <summary>
         /// Method to move the character, uses input to move character one tile
@@ -68,6 +77,10 @@ namespace SDA
             currentKBState = Keyboard.GetState();
             if (oldKBState.IsKeyUp(Keys.Space) && currentKBState.IsKeyDown(Keys.Space)){
                 Attack(enemies);
+            }
+            else if (oldKBState.IsKeyUp(Keys.H)&& currentKBState.IsKeyDown(Keys.H))
+            {
+                Heal();
             }
             else {
                 if (oldKBState.IsKeyUp(Keys.W) && currentKBState.IsKeyDown(Keys.W))
@@ -138,6 +151,19 @@ namespace SDA
             }
             oldKBState = currentKBState;
         }
+        public void Heal()
+        {
+            if (healthPot > 0)
+            {
+                int healAmt = (int)maxHealth / 3;
+                health += healAmt;
+                if (health > maxHealth)
+                {
+                    health = maxHealth;
+                }
+                healthPot--;
+            }
+        }
         /// <summary>
         /// Called when the player's Exp is greater than or equal to expToLevel
         /// Increments Level by 1, scales expToLevel up, and reduces exp by expToLevel to reset
@@ -145,8 +171,12 @@ namespace SDA
         public void Level()
         {
             level++;
-            expToLevel = (int)(expToLevel * 1.5);
             exp = exp - expToLevel;
+            expToLevel = (int)(expToLevel * 1.25);
+            if (exp < 0)
+            {
+                exp = 0;
+            }
             strength++;
             damage = (10 * (int)(Math.Pow(1.15, strength)));
         }
@@ -200,7 +230,7 @@ namespace SDA
                     exp += enemy.ExpValue;
                     if(exp>= expToLevel)
                     {
-                        Level();
+                       Level();
                     }
                 }
                 }
@@ -252,6 +282,8 @@ namespace SDA
             size = new Rectangle(128, 128, size.Width, size.Height);
             map.RoomNumber = 0;
             map.LoadRoom(content);
+            health = 100;
+            level = 1;
             
             
         }

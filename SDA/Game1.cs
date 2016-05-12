@@ -387,6 +387,7 @@ namespace SDA
             {
                 gameMap.Draw(spriteBatch);
                 playerCharacter.Draw(spriteBatch);
+                spriteBatch.DrawString(text, playerCharacter.Health.ToString(), new Vector2(10, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
                 foreach (Enemy enemy in gameMap.Enemies)
                 {
                     if (enemy.IsAlive == true)
