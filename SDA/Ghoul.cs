@@ -14,13 +14,15 @@ namespace SDA
         bool canMove;
         Random move;
         int moveDirection; // 0 moves up, 1 moves left, 2 moves down, 3 moves right
+        int damage;
 
         public Ghoul(Vector2 startPos, string asset, int floor):base(startPos, asset )
         {
             canMove = true;
             move = new Random();
             base.Health = (int)(50 * (Math.Pow(1.25,floor)));
-            base.ExpValue = base.Health / 10;
+            base.ExpValue = (int)(base.Health / 7.5);
+            
         }
 
 
@@ -30,7 +32,7 @@ namespace SDA
 
             if(canAttack == true)
             {
-                player.Health = player.Health - 10;
+                player.Health = player.Health - 5;
             }
             else if (canAttack == false)
             {

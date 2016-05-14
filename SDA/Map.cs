@@ -90,7 +90,26 @@ namespace SDA
         {
             for (int i = 0; i < 100; i++)
             {
+<<<<<<< HEAD
                 floorMap.Add(levelMap[roomSelect.Next(0, levelMap.Count)]);
+=======
+                if (i == 0 || i == 4 || i == 8)
+                {
+                    floorMap[i] = levelMap[0];
+                }
+                else if (i == 1 || i == 5 || i == 9)
+                {
+                    floorMap[i] = levelMap[1];
+                }
+                else if (i == 2 || i == 6)
+                {
+                    floorMap[i] = levelMap[2];
+                }
+                else
+                {
+                    floorMap[i] = levelMap[3];
+                }
+>>>>>>> 520811b03577ca2d82ea159255c9e46dcd3ddf9b
             }
         }
         public void LoadRoom(ContentManager content)
