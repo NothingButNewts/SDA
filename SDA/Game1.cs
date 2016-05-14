@@ -21,7 +21,7 @@ namespace SDA
         Player playerCharacter;  
         Map gameMap;
         GameState currentGameState;
-        Ghoul test;
+
         Texture2D background1; //differnet menu images
         Texture2D background2;
         Texture2D background3;

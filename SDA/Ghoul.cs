@@ -46,11 +46,11 @@ namespace SDA
         {
             Rectangle tempSize = size;
 
-            if ((Math.Abs(this.size.X - player.size.X) > 75) && (Math.Abs(this.size.Y - player.size.Y) > 75))//if the player is not close then move randomly
-            {
+            //if ((Math.Abs(this.size.X - player.size.X) > 75) && (Math.Abs(this.size.Y - player.size.Y) > 75))//if the player is not close then move randomly
+           // {
                 moveDirection = move.Next(0, 4);
-            }
-            else
+         //   }
+         /*   else
             {
                 if (this.size.X != player.size.X)//Ghoul moves toward the player
                 {
@@ -74,7 +74,7 @@ namespace SDA
                         moveDirection = 2;
                     }
                 }
-            }
+            }*/
 
             switch (moveDirection)
             {
