@@ -41,7 +41,12 @@ namespace SDA
             set { health = value; }
         }
 
-        
+        public int Lvl
+        {
+            get { return level; }
+            set { level = value; }
+        }
+
         public int Exp
         {
             get { return exp; }
