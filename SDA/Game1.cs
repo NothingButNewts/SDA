@@ -325,7 +325,8 @@ namespace SDA
                     {
                         if (gameMap.Enemies[i].IsAlive == false)
                         {
-                            gameMap.Enemies.RemoveAt(i);                        }
+                            gameMap.Enemies.RemoveAt(i);
+                        }
                     }
                 }
                 else if (playerTurn == false)

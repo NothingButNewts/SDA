@@ -29,6 +29,7 @@ namespace SDA
         
 
         public KeyboardState OldKBState { get { return oldKBState; } }
+
         public int Health
         {
             get { return health; }
@@ -238,7 +239,7 @@ namespace SDA
 
         public void ChangeRoom(ContentManager content)
         {
-            if (map.RoomNumber == 9)
+            if (map.RoomNumber == 99)
             {
                 map.Doors[2] = false;
                 return;
