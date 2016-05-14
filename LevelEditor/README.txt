@@ -1,13 +1,14 @@
 	How to use the level editor:
 
 1.Place the sprites in the grid however you want.
--highlighting a sprite on the left or right side provides a description.
-2.Click Save Level.
--The bottom left image is the ladder, place one in the grid if you would 
-like.
--The bottom left image is the confirm save, click once to save the level.
 
-Once you confirmed the level save, a binary file will be created in the 
+-highlighting a sprite on the left or right side provides a description.
+
+2.Click Save Level.
+
+-The bottom right image is the confirm save, click once to save the level.
+
+-Once you confirmed the level save, a binary file will be created in the 
 debug folder. You can make as many levels as you would like in one use.
 (No need to exit and re-open the program.)
 

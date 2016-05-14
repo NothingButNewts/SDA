@@ -37,6 +37,7 @@ namespace SDA
         
 
         public KeyboardState OldKBState { get { return oldKBState; } }
+
         public int Health
         {
             get { return health; }
@@ -179,7 +180,7 @@ namespace SDA
         }
         public void Heal()
         {
-            if (healthPot > 0)
+            if (healthPot > 0 && health != maxHealth)
             {
                 int healAmt = (int)maxHealth / 3;
                 health += healAmt;
@@ -205,6 +206,11 @@ namespace SDA
             }
             strength++;
             damage = (10 * (int)(Math.Pow(1.15, strength)));
+        }
+
+        public void GainPotion()
+        {
+            healthPot++;    
         }
 
         public void Attack(List<Enemy> enemies)
@@ -299,7 +305,7 @@ namespace SDA
 
         public void ChangeRoom(ContentManager content)
         {
-            if (map.RoomNumber == 9)
+            if (map.RoomNumber == 99)
             {
                 map.Doors[2] = false;
                 return;

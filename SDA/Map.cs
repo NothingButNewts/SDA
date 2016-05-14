@@ -25,7 +25,7 @@ namespace SDA
         List<Rectangle> objectSpaces;
         List<Enemy> enemies;
         Random roomSelect;
-        private int[][] floorMap;
+        private List<int[]> floorMap;
         List<Sprite> sprites;
 
 
@@ -46,16 +46,16 @@ namespace SDA
             levelMap = new List<int[]>();
             dirInfo = new DirectoryInfo("Maps");
             byteMap = new List<byte>();
-            roomNumber = 0;
             wall = content.Load<Texture2D>("WorldObjects/Wall");
             files = dirInfo.GetFiles();
             objectSpaces = new List<Rectangle>();
             enemies = new List<Enemy>();
             sprites = new List<Sprite>();
             roomSelect = new Random();
-            floorMap = new int[10][];
+            floorMap = new List<int[]>();
+            roomNumber = 0;
         }
-
+        
         //default constructor used in player class to get access to door positions
         public Map()
         {
@@ -68,10 +68,8 @@ namespace SDA
         /// </summary>
         public void LoadLevels()
         {
-            
             foreach(FileInfo file in files)
             {
-
                 byteMap.Clear();
                 if (file.Name.Contains("Level")) //Will load all levels into the levelMap List
                 {
@@ -79,7 +77,6 @@ namespace SDA
                     for (int i = 0; i < byteMap.Count; i += 4)
                     {
                         tileMap[i / 4] = (byteMap[i]);
-
                     }
                     levelMap.Add(tileMap);
                 }
@@ -91,8 +88,10 @@ namespace SDA
         /// </summary>
         public void LoadFloor()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
+                floorMap.Add(levelMap[roomSelect.Next(0, levelMap.Count)]);
+
                 if (i == 0 || i == 4 || i == 8)
                 {
                     floorMap[i] = levelMap[0];
