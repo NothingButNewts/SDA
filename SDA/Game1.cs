@@ -353,7 +353,7 @@ namespace SDA
                     menu = MenuState.GameOver1;
                     playerCharacter.Reset(Content);
                     playerCharacter.Health = 100;
-                    score = playerCharacter.Exp * 2;
+                    score = playerCharacter.Score;
                     if (score > hiscore)
                     {
                         hiscore = score;
@@ -389,13 +389,16 @@ namespace SDA
                 gameMap.Draw(spriteBatch);
                 playerCharacter.Draw(spriteBatch);
                 spriteBatch.DrawString(text, "HP: " +playerCharacter.Health.ToString(), new Vector2(10, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
-                //spriteBatch.DrawString(text, "LVL: " + playerCharacter.Lvl.ToString(), new Vector2(10, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Health Potions: " + playerCharacter.Pots.ToString(), new Vector2(10, 525), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Score: " + playerCharacter.Score.ToString(), new Vector2(640, 525), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                if (playerCharacter.Lasthit != null && playerCharacter.Lasthit.Health > 0)
+                {
+                    spriteBatch.DrawString(text, playerCharacter.Lasthit.Name + " HP: " + playerCharacter.Lasthit.Health.ToString(), new Vector2(600, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                }
                 foreach (Enemy enemy in gameMap.Enemies)
                 {
                     if (enemy.IsAlive == true)
                     {
-
-
                         enemy.Draw(spriteBatch);
                     }
                 }

@@ -15,6 +15,7 @@ namespace SDA
         int defense;
         int expValue;
         bool isAlive;
+        string name;
         Map map = new Map();
         public Enemy(Vector2 startPos, string asset):base(startPos, asset)
         {
@@ -28,6 +29,7 @@ namespace SDA
         public int Health { get { return health; } set { health = value; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
         public int ExpValue { get { return expValue; } set { expValue = value; } }
+        public string Name { get { return name; } set { name = value; } } 
 
         //deals with enemy collision with outer walls to make sure they can't leave the room
         public bool CheckOuterWalls(int x, int y)
