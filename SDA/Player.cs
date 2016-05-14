@@ -320,6 +320,7 @@ namespace SDA
             map.RoomNumber = 0;
             map.LoadRoom(content);
             health = 100;
+            healthPot = 3;
             level = 1;
             
             
