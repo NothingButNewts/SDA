@@ -147,7 +147,7 @@ namespace SDA
                         menu = MenuState.Menu2;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         //start the game
                         System.Threading.Thread.Sleep(500);
@@ -163,7 +163,7 @@ namespace SDA
                         menu = MenuState.Menu1;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         menu = MenuState.Instruct1;
                         System.Threading.Thread.Sleep(500);
@@ -176,7 +176,7 @@ namespace SDA
                         menu = MenuState.Instruct2;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         //start the game
                         menu = MenuState.Menu1;
@@ -190,7 +190,7 @@ namespace SDA
                         menu = MenuState.Instruct1;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         menu = MenuState.Controls1;
                         System.Threading.Thread.Sleep(500);
@@ -203,7 +203,7 @@ namespace SDA
                         menu = MenuState.Controls2;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         menu = MenuState.Menu1;
                         System.Threading.Thread.Sleep(500);
@@ -216,7 +216,7 @@ namespace SDA
                         menu = MenuState.Controls1;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         System.Threading.Thread.Sleep(500);
                         currentGameState = GameState.Game;
@@ -231,7 +231,7 @@ namespace SDA
                         menu = MenuState.GameOver2;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         System.Threading.Thread.Sleep(500);
                         menu = MenuState.Menu1;
@@ -244,7 +244,7 @@ namespace SDA
                         menu = MenuState.GameOver1;
                         break;
                     }
-                    else if (state.IsKeyDown(Keys.Enter))
+                    else if (state.IsKeyDown(Keys.Space))
                     {
                         System.Threading.Thread.Sleep(500);
                         Exit();
@@ -285,12 +285,12 @@ namespace SDA
             else if (menu == MenuState.GameOver1)
             {
                 spriteBatch.Draw(background7, new Vector2(0.0f, 0.0f), Color.White);
-                spriteBatch.DrawString(text, "hiscore: "+hiscore, new Vector2(0.0f, 32.0f), Color.White);
+                spriteBatch.DrawString(text, "High Score: "+hiscore, new Vector2(0.0f, 32.0f), Color.White);
             }
             else if (menu == MenuState.GameOver2)
             {
                 spriteBatch.Draw(background8, new Vector2(0.0f, 0.0f), Color.White);
-                spriteBatch.DrawString(text, "hiscore: " + hiscore, new Vector2(0.0f, 32.0f), Color.White);
+                spriteBatch.DrawString(text, "High Score: " + hiscore, new Vector2(0.0f, 32.0f), Color.White);
             }
         }
 
@@ -387,7 +387,8 @@ namespace SDA
             {
                 gameMap.Draw(spriteBatch);
                 playerCharacter.Draw(spriteBatch);
-                spriteBatch.DrawString(text, playerCharacter.Health.ToString(), new Vector2(10, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "HP: " +playerCharacter.Health.ToString(), new Vector2(10, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                //spriteBatch.DrawString(text, "LVL: " + playerCharacter.Lvl.ToString(), new Vector2(10, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
                 foreach (Enemy enemy in gameMap.Enemies)
                 {
                     if (enemy.IsAlive == true)
