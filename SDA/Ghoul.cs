@@ -22,7 +22,7 @@ namespace SDA
             move = new Random();
             base.Health = (int)(50 * (Math.Pow(1.25,floor)));
             base.ExpValue = (int)(base.Health / 7.5);
-            
+            base.Name = "Ghoul";
         }
 
 

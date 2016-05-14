@@ -21,6 +21,8 @@ namespace SDA
         int vitality; //Stat to effect how much max health the player has
         int damage; //Damage that the player does, based on weapon and strength
         int healthPot; //Tracks how many health potions the player has.
+        Enemy lasthit; //Remember the last enemy hit by player
+        int score;
 
         KeyboardState oldKBState; //Becomes equal to the previous currentKBState
         KeyboardState currentKBState; //Checks the current keyboard state
@@ -41,6 +43,18 @@ namespace SDA
             set { health = value; }
         }
 
+        public Enemy Lasthit
+        {
+            get { return lasthit; }
+            set { lasthit = value; }
+        }
+
+        public int Pots
+        {
+            get { return healthPot; }
+            set { healthPot = value; }
+        }
+
         public int Lvl
         {
             get { return level; }
@@ -51,6 +65,12 @@ namespace SDA
         {
             get { return exp; }
             set { exp = value; }
+        }
+
+        public int Score
+        {
+            get { return score; }
+            set { score = value; }
         }
 
         public Player(Vector2 startPos, string asset,Map map):base(startPos, asset)
@@ -69,6 +89,7 @@ namespace SDA
             this.map = map;
             damage = 10;
             healthPot = 3;
+            score = 0;
         }
         /// <summary>
         /// Method to move the character, uses input to move character one tile
@@ -198,6 +219,7 @@ namespace SDA
                         if (tempSize.Intersects(enemy.size))
                         {
                             enemy.Health = enemy.Health - damage;
+                            lasthit = enemy;
                         }
                         break;
 
@@ -206,6 +228,7 @@ namespace SDA
                         if (tempSize.Intersects(enemy.size))
                         {
                             enemy.Health = enemy.Health - damage;
+                            lasthit = enemy;
                         }
                         break;
 
@@ -214,6 +237,7 @@ namespace SDA
                         if (tempSize.Intersects(enemy.size))
                         {
                             enemy.Health = enemy.Health - damage;
+                            lasthit = enemy;
                         }
                         break;
 
@@ -223,6 +247,7 @@ namespace SDA
                         if (tempSize.Intersects(enemy.size))
                         {
                             enemy.Health = enemy.Health - damage;
+                            lasthit = enemy;
                         }
                         break;
 
@@ -233,6 +258,7 @@ namespace SDA
                 {
                     enemy.IsAlive = false;
                     exp += enemy.ExpValue;
+                    score += (enemy.ExpValue * 2);
                     if(exp>= expToLevel)
                     {
                        Level();
