@@ -55,7 +55,7 @@ namespace SDA
             floorMap = new List<int[]>();
             roomNumber = 0;
         }
-
+        
         //default constructor used in player class to get access to door positions
         public Map()
         {
