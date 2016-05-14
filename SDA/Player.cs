@@ -181,6 +181,11 @@ namespace SDA
             damage = (10 * (int)(Math.Pow(1.15, strength)));
         }
 
+        public void GainPotion()
+        {
+            healthPot++;    
+        }
+
         public void Attack(List<Enemy> enemies)
         {
             Rectangle tempSize = size;
