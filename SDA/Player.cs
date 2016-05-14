@@ -159,7 +159,7 @@ namespace SDA
         }
         public void Heal()
         {
-            if (healthPot > 0)
+            if (healthPot > 0 && health != maxHealth)
             {
                 int healAmt = (int)maxHealth / 3;
                 health += healAmt;

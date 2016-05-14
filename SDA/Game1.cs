@@ -63,7 +63,7 @@ namespace SDA
 
             
             gameMap = new Map(this.Content);
-            playerCharacter = new Player(new Vector2(128, 128), "Character/Player",gameMap);
+            playerCharacter = new Player(new Vector2(128, 128), "Character/Player", gameMap);
             currentGameState = GameState.Menu;
             menu = MenuState.Menu1;
             currentGameState = GameState.Menu;
