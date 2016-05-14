@@ -475,6 +475,13 @@ namespace LevelEditor
                 {
                     spriteBatch.Draw(highlight, new Rectangle(705, 403, 78, 70), Color.Blue);
                     ConvertLevel();
+                    for(int i = 0; i < level.GetLength(0); i++)
+                    {
+                        for(int j = 0; j < level.GetLength(1); j++)
+                        {
+                            level[i, j].BinNum = 2;
+                        }
+                    }
                 }
                 oldState = mState;
             }
