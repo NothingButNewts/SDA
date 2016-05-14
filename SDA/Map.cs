@@ -75,18 +75,12 @@ namespace SDA
                 tileMap = new int[77];
                 if (file.Name.Contains("Level")) //Will load all levels into the levelMap List
                 {
-                    
                     byteMap.InsertRange(0, File.ReadAllBytes("Maps/" + file.Name));
                     for (int i = 0; i < byteMap.Count; i += 4)
                     {
                         tileMap[i / 4] = (byteMap[i]);
                     }
-                    
-                    
-                        levelMap.Add(tileMap);
-                        
-                    
-                    
+                    levelMap.Add(tileMap);          
                 }
             }
         }
