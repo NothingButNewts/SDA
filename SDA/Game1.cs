@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
+using System.Threading;
 
 namespace SDA
 {
@@ -10,9 +11,10 @@ namespace SDA
     /// </summary>
     public class Game1 : Game
     {
-        enum GameState { Menu, LevelSelect, Game, GameOver }
+        enum GameState { Menu, LevelSelect, Game, GameOver, Pause }
         enum MenuState { Menu1, Menu2, Instruct1, Instruct2, Controls1, Controls2, GameOver1, GameOver2 }
         MenuState menu;
+        GameState prev;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -309,8 +311,18 @@ namespace SDA
             {
                 ChangeMenu();
             }
+            else if (currentGameState == GameState.Pause)
+            {
+                KeyboardState state = Keyboard.GetState();
+                if ( state.IsKeyDown(Keys.Q))
+                {
+                    currentGameState = prev;
+                    Thread.Sleep(500);
+                }
+            }
             else if (currentGameState == GameState.Game)
             {
+                KeyboardState state = Keyboard.GetState();
                 if (mapLoaded == false)
                 {
                     gameMap.LoadRoom(this.Content);
@@ -360,7 +372,12 @@ namespace SDA
                         WriteScore("hiscore");
                     }
                 }
-                
+                if (state.IsKeyDown(Keys.Q))
+                {
+                    prev = currentGameState;
+                    currentGameState = GameState.Pause;
+                    Thread.Sleep(500);
+                }
             }
             
             
@@ -383,6 +400,21 @@ namespace SDA
             {
                 DrawMenu();
             }
+            if (currentGameState == GameState.Pause)
+            {
+                //spriteBatch.Draw(new Texture2D())
+            }
+            if (currentGameState == GameState.Pause)
+            {
+                spriteBatch.DrawString(text, "** PAUSED **", new Vector2(280, 10), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Damage: " + playerCharacter.Damage.ToString(), new Vector2(10, 50), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Experience: " + playerCharacter.Exp.ToString(), new Vector2(10, 90), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Level: " + playerCharacter.Lvl.ToString(), new Vector2(10, 130), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Exp to level: " + playerCharacter.ToLvl.ToString(), new Vector2(10, 170), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Press 'Q' to return to game...", new Vector2(10, 250), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(text, "Room number: " +playerCharacter.Room.RoomNumber, new Vector2(10, 210), Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 0f);
+            }
+
 
             if (currentGameState == GameState.Game)
             {

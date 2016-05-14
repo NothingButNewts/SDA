@@ -44,6 +44,12 @@ namespace SDA
             set { health = value; }
         }
 
+        public Map Room
+        {
+            get { return map; }
+            set { map = value; }
+        }
+
         public Enemy Lasthit
         {
             get { return lasthit; }
@@ -66,6 +72,18 @@ namespace SDA
         {
             get { return exp; }
             set { exp = value; }
+        }
+
+        public int ToLvl
+        {
+            get { return expToLevel-exp; }
+            set { expToLevel = value; }
+        }
+
+        public int Damage
+        {
+            get { return damage; }
+            set { damage = value; }
         }
 
         public int Score
@@ -305,7 +323,7 @@ namespace SDA
 
         public void ChangeRoom(ContentManager content)
         {
-            if (map.RoomNumber == 99)
+            if (map.RoomNumber == 98)
             {
                 map.Doors[2] = false;
                 return;
