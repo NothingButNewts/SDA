@@ -30,14 +30,14 @@ namespace SDA
         public bool playerTurn; //Bool to determine if it is the player's turn or not, changes on enemy turns and player turns
         bool canMove;
 
-        DirectionFacing currentDirection;
-        enum DirectionFacing { Up, Down, Left, Right };
+        public DirectionFacing currentDirection;
+        public enum DirectionFacing { Up, Down, Left, Right };
 
         Map map;
         
 
         public KeyboardState OldKBState { get { return oldKBState; } }
-
+        
         public int Health
         {
             get { return health; }
@@ -321,9 +321,7 @@ namespace SDA
             map.LoadRoom(content);
             health = 100;
             healthPot = 3;
-            level = 1;
-            
-            
+            level = 1;          
         }
     }
 }

@@ -18,7 +18,11 @@ namespace SDA
         SpriteBatch spriteBatch;
         SpriteFont text;
         bool playerTurn;
-        Player playerCharacter;  
+        Player playerCharacter;
+        Texture2D side; //player right side view
+        Texture2D back; //player back view
+        Texture2D otherSide; //player left side view
+        Texture2D front; //player front view
         Map gameMap;
         GameState currentGameState;
         Ghoul test;
@@ -110,7 +114,11 @@ namespace SDA
             spriteBatch = new SpriteBatch(GraphicsDevice);
             text = Content.Load<SpriteFont>("SpriteFont1");
             playerCharacter.LoadContent(this.Content);
-      
+            side = Content.Load<Texture2D>("Character/Player_Side");
+            back = Content.Load<Texture2D>("Character/Player_Back");
+            otherSide = Content.Load<Texture2D>("Character/Player_OtherSide");
+            front = Content.Load <Texture2D>("Character/Player");
+
             gameMap.LoadLevels();
 
             // TODO: use this.Content to load your game content here
@@ -317,9 +325,15 @@ namespace SDA
                     mapLoaded = true;
                 }
                 if (playerTurn == true)
-                {
+                {                    
                     playerCharacter.Move(gameMap.ObjectSpaces,gameMap.Enemies,gameMap,this.Content);
-                    
+
+                    //decides what player sprite is drawn based on direction
+                    if (playerCharacter.currentDirection == Player.DirectionFacing.Right) playerCharacter.texture = side;
+                    else if (playerCharacter.currentDirection == Player.DirectionFacing.Left) playerCharacter.texture = otherSide;
+                    else if (playerCharacter.currentDirection == Player.DirectionFacing.Up) playerCharacter.texture = back;
+                    else playerCharacter.texture = front;
+
                     playerTurn = playerCharacter.playerTurn;
                     for (int i = 0; i < gameMap.Enemies.Count; i++)
                     {

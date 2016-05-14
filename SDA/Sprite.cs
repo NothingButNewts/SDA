@@ -11,7 +11,7 @@ namespace SDA
     class Sprite
     {
         public Vector2 position;
-        protected Texture2D texture;
+        public Texture2D texture;
         public Rectangle size;
         public string textureAsset;
         
