@@ -336,13 +336,10 @@ namespace SDA
             map.LoadRoom(content);
             health = 100;
             healthPot = 3;
-<<<<<<< HEAD
-            level = 1;          
-=======
+            level = 1;     
             level = 1;
             score = 0;
             lasthit = null;
->>>>>>> 8e0622f2b52c271d6324e92a96e6746bae726dc3
         }
     }
 }
