@@ -12,13 +12,11 @@ namespace SDA
     {
         int health; //Current health that the player has
         int maxHealth; //Maximum health the player has
-        int dexterity; //Dexterity measurement, might effect movement or crit chance, not positive
         int strength; //Will effect damage the player does
         int defense; //Reduction to the damage that the player takes
         int exp; //Player's current exp, changes with each monster kill 
         int expToLevel; //Player's exp that is needed to advance to the next level
         int level; //Players current level
-        int vitality; //Stat to effect how much max health the player has
         int damage; //Damage that the player does, based on weapon and strength
         int healthPot; //Tracks how many health potions the player has.
         Enemy lasthit; //Remember the last enemy hit by player
@@ -95,10 +93,8 @@ namespace SDA
         public Player(Vector2 startPos, string asset,Map map):base(startPos, asset)
         {
             currentDirection = DirectionFacing.Up;
-            dexterity = 1;
             strength = 1;
             exp = 0;
-            vitality = 1;
             maxHealth = 100;
             health = maxHealth;
             expToLevel = 40;
@@ -234,8 +230,8 @@ namespace SDA
         public void Attack(List<Enemy> enemies)
         {
             Rectangle tempSize = size;
-                foreach (Enemy enemy in enemies)
-                {
+            foreach (Enemy enemy in enemies)
+            {
                 switch (currentDirection)
                 {
                     case DirectionFacing.Up:
@@ -244,6 +240,7 @@ namespace SDA
                         {
                             enemy.Health = enemy.Health - damage;
                             lasthit = enemy;
+                            playerTurn = false;
                         }
                         break;
 
@@ -253,6 +250,7 @@ namespace SDA
                         {
                             enemy.Health = enemy.Health - damage;
                             lasthit = enemy;
+                            playerTurn = false;
                         }
                         break;
 
@@ -262,6 +260,7 @@ namespace SDA
                         {
                             enemy.Health = enemy.Health - damage;
                             lasthit = enemy;
+                            playerTurn = false;
                         }
                         break;
 
@@ -272,6 +271,7 @@ namespace SDA
                         {
                             enemy.Health = enemy.Health - damage;
                             lasthit = enemy;
+
                         }
                         break;
 
@@ -283,15 +283,12 @@ namespace SDA
                     enemy.IsAlive = false;
                     exp += enemy.ExpValue;
                     score += (enemy.ExpValue * 2);
-                    if(exp>= expToLevel)
+                    if (exp >= expToLevel)
                     {
-                       Level();
+                        Level();
                     }
                 }
-                }
-                
-            
-
+            }
         }
 
         //handles player collision with outer walls that surround the map. Takes x and y coordinates as parameters. If the player is able to move, returns true.
@@ -338,6 +335,7 @@ namespace SDA
             map.RoomNumber = 0;
             map.LoadRoom(content);
             health = 100;
+            healthPot = 3;
             level = 1;
             
             

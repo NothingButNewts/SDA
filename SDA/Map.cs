@@ -68,9 +68,11 @@ namespace SDA
         /// </summary>
         public void LoadLevels()
         {
+            
             foreach(FileInfo file in files)
             {
                 byteMap.Clear();
+                tileMap = new int[77];
                 if (file.Name.Contains("Level")) //Will load all levels into the levelMap List
                 {
                     byteMap.InsertRange(0, File.ReadAllBytes("Maps/" + file.Name));
@@ -78,7 +80,7 @@ namespace SDA
                     {
                         tileMap[i / 4] = (byteMap[i]);
                     }
-                    levelMap.Add(tileMap);
+                    levelMap.Add(tileMap);          
                 }
             }
         }
@@ -91,23 +93,6 @@ namespace SDA
             for (int i = 0; i < 100; i++)
             {
                 floorMap.Add(levelMap[roomSelect.Next(0, levelMap.Count)]);
-
-                if (i == 0 || i == 4 || i == 8)
-                {
-                    floorMap[i] = levelMap[0];
-                }
-                else if (i == 1 || i == 5 || i == 9)
-                {
-                    floorMap[i] = levelMap[1];
-                }
-                else if (i == 2 || i == 6)
-                {
-                    floorMap[i] = levelMap[2];
-                }
-                else
-                {
-                    floorMap[i] = levelMap[3];
-                }
             }
         }
         public void LoadRoom(ContentManager content)

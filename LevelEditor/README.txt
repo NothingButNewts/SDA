@@ -12,6 +12,8 @@
 debug folder. You can make as many levels as you would like in one use.
 (No need to exit and re-open the program.)
 
+-Once the level is saved, the current map will be cleared.
+
 ORDER OF NUMBERS IN BINARY FILE:
 
 00 00 00 00 - Player Spawn
