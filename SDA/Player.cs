@@ -337,8 +337,8 @@ namespace SDA
             health = 100;
             healthPot = 3;
             level = 1;
-            
-            
+            score = 0;
+            lasthit = null;
         }
     }
 }
