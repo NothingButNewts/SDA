@@ -279,7 +279,7 @@ namespace SDA
 
         public void ChangeRoom(ContentManager content)
         {
-            if (map.RoomNumber == 99)
+            if (map.RoomNumber == 98)
             {
                 map.Doors[2] = false;
                 return;
