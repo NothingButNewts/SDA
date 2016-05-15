@@ -326,6 +326,7 @@ namespace SDA
                 return;
             }
             map.RoomNumber++;
+            GainPotion();
             map.LoadRoom(content);
         }
 
