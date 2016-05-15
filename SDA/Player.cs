@@ -271,7 +271,7 @@ namespace SDA
                         {
                             enemy.Health = enemy.Health - damage;
                             lasthit = enemy;
-
+                            playerTurn = false;
                         }
                         break;
 
