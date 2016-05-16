@@ -366,6 +366,10 @@ namespace SDA
             map.RoomNumber = 0;
             map.LoadRoom(content);
             health = 100;
+            maxHealth = 100;
+            defense = 10;
+            exp = 0;
+            expToLevel = 30;
             healthPot = 3;
             level = 1;     
             level = 1;
