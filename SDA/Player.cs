@@ -100,7 +100,7 @@ namespace SDA
             exp = 0;
             maxHealth = 100;
             health = maxHealth;
-            expToLevel = 25;
+            expToLevel = 30;
             level = 1;
             playerTurn = true;
             canMove = true;
@@ -216,10 +216,11 @@ namespace SDA
         /// </summary>
         public void Level()
         {
-            damage = (int)(damage * Math.Pow(1.4, level));
-            defense = (int)(defense * Math.Pow(1.4, level));
-            maxHealth = (int)(maxHealth * Math.Pow(1.35, level));
+            damage = (int)(damage * 1.4);
+            defense = (int)(defense * 1.25);
+            maxHealth = (int)(maxHealth * 1.25);
             level++;
+            health = maxHealth;
             exp = exp - expToLevel;
             expToLevel = (int)(expToLevel * 1.25);
             if (exp < 0)
