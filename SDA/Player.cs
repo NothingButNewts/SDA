@@ -21,6 +21,7 @@ namespace SDA
         int healthPot; //Tracks how many health potions the player has.
         Enemy lasthit; //Remember the last enemy hit by player
         int score;
+        Random boostRand;
 
         KeyboardState oldKBState; //Becomes equal to the previous currentKBState
         KeyboardState currentKBState; //Checks the current keyboard state
@@ -90,6 +91,8 @@ namespace SDA
             set { score = value; }
         }
 
+        public int Defense { get { return defense; } }
+
         public Player(Vector2 startPos, string asset,Map map):base(startPos, asset)
         {
             currentDirection = DirectionFacing.Up;
@@ -97,7 +100,7 @@ namespace SDA
             exp = 0;
             maxHealth = 100;
             health = maxHealth;
-            expToLevel = 40;
+            expToLevel = 25;
             level = 1;
             playerTurn = true;
             canMove = true;
@@ -105,6 +108,8 @@ namespace SDA
             damage = 10;
             healthPot = 3;
             score = 0;
+            defense = 10;
+            boostRand = new Random();
         }
         /// <summary>
         /// Method to move the character, uses input to move character one tile
@@ -211,6 +216,9 @@ namespace SDA
         /// </summary>
         public void Level()
         {
+            damage = (int)(damage * Math.Pow(1.4, level));
+            defense = (int)(defense * Math.Pow(1.4, level));
+            maxHealth = (int)(maxHealth * Math.Pow(1.35, level));
             level++;
             exp = exp - expToLevel;
             expToLevel = (int)(expToLevel * 1.25);
@@ -218,8 +226,8 @@ namespace SDA
             {
                 exp = 0;
             }
-            strength++;
-            damage = (10 * (int)(Math.Pow(1.15, strength)));
+           
+
         }
 
         public void GainPotion()
@@ -320,13 +328,34 @@ namespace SDA
 
         public void ChangeRoom(ContentManager content)
         {
+            int reward = boostRand.Next(1, 101);
+            int boost = 1;
+            int tempRoom = map.RoomNumber;
+
+            while (tempRoom>4)
+            {
+                boost++;
+                tempRoom -= 5;
+            }
             if (map.RoomNumber == 98)
             {
                 map.Doors[2] = false;
                 return;
             }
             map.RoomNumber++;
-            GainPotion();
+
+            if(reward < 55)
+            {
+                GainPotion();
+            }
+            else if (reward < 75)
+            {
+                BoostDefense(boost);
+            }
+            else
+            {
+                BoostMaxHP(boost);
+            }
             map.LoadRoom(content);
         }
 
@@ -341,6 +370,14 @@ namespace SDA
             level = 1;
             score = 0;
             lasthit = null;
+        }
+        public void BoostDefense(int boost)
+        {
+            defense += boost;
+        }
+        public void BoostMaxHP(int boost)
+        {
+            maxHealth += (boost * 10);
         }
     }
 }

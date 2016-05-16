@@ -20,9 +20,17 @@ namespace SDA
         {
             canMove = true;
             move = new Random();
-            base.Health = (int)(50 * (Math.Pow(1.25,floor)));
+            base.Health = (int)(50 * (Math.Pow(1.2,floor)));
             base.ExpValue = (int)(base.Health / 7.5);
             base.Name = "Ghoul";
+            if (floor == 0)
+            {
+                damage = 15;
+            }
+            else
+            {
+                damage = (int)(15 * Math.Pow(1.2, floor));
+            }
         }
 
 
@@ -32,7 +40,11 @@ namespace SDA
 
             if(canAttack == true)
             {
-                player.Health = player.Health - 5;
+                if (damage - player.Defense > 0)
+                {
+                    player.Health = player.Health - (damage-player.Defense);
+                }
+                
             }
             else if (canAttack == false)
             {
